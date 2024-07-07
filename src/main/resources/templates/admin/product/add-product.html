@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/base/base-layout::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+</head>
+<body>
+    <section>
+        <div class="container p-5 mt-3">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card card-sh">
+                        <div class="card-header text-center fs-4">Add Product</div>
+                        <div class="card-body">
+                            <form method="post" action="/admin/add-product" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="name">Name</label>
+                                    <input id="name" type="text" name="name" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="price">Price</label>
+                                    <input id="price" type="number" step="any"
+                                           name="price" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="category">Category</label>
+                                    <select id="category" class="form-control" name="category">
+                                        <option>--- Select ---</option>
+                                        <option th:each="category : ${categoryList}"
+                                                th:text="${category.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description">Description</label>
+                                    <textarea id="description" name="description"
+                                              rows="3" cols="" class="form-control"></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col">
+                                        <label for="stock">Stock</label>
+                                        <input id="stock" type="number" name="stock" class="form-control">
+                                    </div>
+                                    <div class="mb-3 col">
+                                        <label for="file">Image</label>
+                                        <input id="file" type="file"
+                                               name="file" class="form-control">
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary col-md-12">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
