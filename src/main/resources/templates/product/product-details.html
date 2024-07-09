@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/base/base-layout::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Details of product</title>
+</head>
+<body>
+    <section>
+      <div class="container card-sh" style="margin-top: 70px; margin-bottom: 100px">
+        <div class="col-md-12 p-5">
+          <div class="row">
+            <div class="col-md-6 text-end">
+              <img alt="" th:src="@{'/product-images/' + ${foundedProduct.imageName}}"
+                   width="330px" height="400px">
+            </div>
+            <div class="col-md-6">
+              <p class="fs-3" th:text="${foundedProduct.name}"></p>
+              <p>
+                <span class="fw-bold">Description:</span>
+                <br>
+                [[${foundedProduct.description}]]
+              </p>
+              <p>
+                <span class="fw-bold">Product Details:</span>
+                <br>
+                Status:
+                <th:block th:if="${foundedProduct.stock > 0}">
+                  <span class="badge bg-success">Available</span>
+                </th:block>
+                <th:block th:unless="${foundedProduct.stock > 0}">
+                  <span class="badge bg-warning">Out Of Stock</span>
+                </th:block>
+                <br>
+                Category: [[${foundedProduct.category}]]
+                <br>
+                Policy: 7 Days Replacement & Return
+              </p>
+              <p class="fs-5 fw-bold">
+                Price: [[${foundedProduct.discountPrice}]] $
+                <span class="fs-6 text-decoration-line-through text-secondary">
+                  [[${foundedProduct.price}]] $
+                </span>
+                <span class="fs-6 text-success">
+                  [[${foundedProduct.discount}]] % Off
+                </span>
+              </p>
+              <div class="row">
+                <div class="col-md-4 text-success text-center p-2">
+                  <p>Cash On Delivery</p>
+                </div>
+                <div class="col-md-4 text-danger text-center p-2">
+                  <p>Return Available</p>
+                </div>
+                <div class="col-md-4 text-primary text-center p-2">
+                  <p>Free Shipping</p>
+                </div>
+              </div>
+              <th:block th:if="${foundedProduct.stock > 0}">
+                <a href="#" class="btn btn-warning col-md-12">Add To Cart</a>
+              </th:block>
+              <th:block th:unless="${foundedProduct.stock > 0}">
+                <a href="#" class="btn text-white btn-warning col-md-12">Out of Stock</a>
+              </th:block>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</body>
+</html>
