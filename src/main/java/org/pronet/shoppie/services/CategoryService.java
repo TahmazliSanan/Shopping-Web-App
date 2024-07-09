@@ -10,6 +10,7 @@ public interface CategoryService {
     Category add(Category category, MultipartFile file) throws IOException;
     Category getById(Long id);
     List<Category> getList();
+    List<Category> getActiveCategoryList();
     Category edit(Category category, MultipartFile file) throws IOException;
     Boolean remove(Long id);
     Boolean existsCategoryByName(String name);
