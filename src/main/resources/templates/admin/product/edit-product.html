@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/base/base-layout::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product</title>
+</head>
+<body>
+<section>
+    <div class="container p-5 mt-3">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card card-sh">
+                    <div class="card-header text-center fs-4">Edit Product</div>
+                    <div class="card-body">
+                        <form method="post" action="/admin/edit-product" enctype="multipart/form-data">
+                            <input type="hidden" name="id" th:value="${foundedProduct.id}">
+                            <div class="mb-3">
+                                <label for="name">Name</label>
+                                <input id="name" type="text" name="name"
+                                       th:value="${foundedProduct.name}" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="price">Price</label>
+                                <input id="price" type="number" step="any" name="price"
+                                       th:value="${foundedProduct.price}" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="category">Category</label>
+                                <select id="category" class="form-control" name="category">
+                                    <option th:text="${foundedProduct.category}"></option>
+                                    <option th:each="category : ${categoryList}"
+                                            th:text="${category.name}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description">Description</label>
+                                <textarea id="description" name="description" rows="3" cols=""
+                                          th:text="${foundedProduct.description}"
+                                          class="form-control"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col">
+                                    <label for="discount">Discount</label>
+                                    <input id="discount" type="number" name="discount"
+                                           th:value="${foundedProduct.discount}" class="form-control">
+                                </div>
+                                <div class="mb-3 col">
+                                    <label for="discountPrice">Discount Price</label>
+                                    <input id="discountPrice" type="number" readonly
+                                           th:value="${foundedProduct.discountPrice}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label>Status</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                           th:checked="${foundedProduct.isActive == true}"
+                                           value="true" name="isActive" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">Active</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="isActive"
+                                           th:checked="${foundedProduct.isActive == false}"
+                                           value="false" id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">Inactive</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col">
+                                    <label for="stock">Stock</label>
+                                    <input id="stock" type="number" name="stock"
+                                           th:value="${foundedProduct.stock}" class="form-control">
+                                </div>
+                                <div class="mb-3 col">
+                                    <label for="file">Image</label>
+                                    <input id="file" type="file"
+                                           name="file" class="form-control">
+                                </div>
+                            </div>
+                            <img th:src="@{'/product-images/' + ${foundedProduct.imageName}}"
+                                 width="100px" height="100px" alt="...">
+                            <button class="btn btn-success col-md-12">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
