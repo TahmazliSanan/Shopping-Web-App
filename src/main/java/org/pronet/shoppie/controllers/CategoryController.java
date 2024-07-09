@@ -20,7 +20,7 @@ public class CategoryController {
 
     @GetMapping("/list")
     public String categoryListPage(Model model) {
-        List<Category> categoryList = categoryService.getList();
+        List<Category> categoryList = categoryService.getActiveCategoryList();
         model.addAttribute("categoryList", categoryList);
         return "category/category-list";
     }
