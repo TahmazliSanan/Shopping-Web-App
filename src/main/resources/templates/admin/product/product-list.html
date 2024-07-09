@@ -35,6 +35,8 @@
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Price ($)</th>
+                            <th scope="col">Discount (%)</th>
+                            <th scope="col">Discount Price ($)</th>
                             <th scope="col">Category</th>
                             <th scope="col">Stock</th>
                             <th scope="col">Image</th>
@@ -45,6 +47,8 @@
                         <tr th:each="product : ${productList}">
                             <td th:text="${product.name}"></td>
                             <td th:text="${product.price}"></td>
+                            <td th:text="${product.discount}"></td>
+                            <td th:text="${product.discountPrice}"></td>
                             <td th:text="${product.category}"></td>
                             <td th:text="${product.stock}"></td>
                             <td>
