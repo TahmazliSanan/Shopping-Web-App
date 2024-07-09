@@ -18,8 +18,11 @@ public class Product {
     private Long id;
     private String name;
     private Double price;
+    private Integer discount;
+    private Double discountPrice;
     private String category;
     private String description;
     private Integer stock;
     private String imageName;
+    private Boolean isActive;
 }
