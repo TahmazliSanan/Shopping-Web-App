@@ -9,22 +9,6 @@
 <body>
     <section>
         <div class="container-fluid p-5 mt-5">
-            <th:block th:if="${session.successMessage}">
-                <div class="alert alert-success alert-dismissible fade show"
-                     role="alert">
-                    [[${session.successMessage}]]
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
-            </th:block>
-            <th:block th:if="${session.errorMessage}">
-                <div class="alert alert-danger alert-dismissible fade show"
-                     role="alert">
-                    [[${session.errorMessage}]]
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
-            </th:block>
             <div class="row">
                 <div class="col-md-3 offset-md-5">
                     <div class="card card-sh">
