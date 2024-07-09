@@ -40,6 +40,7 @@
                             <th scope="col">Category</th>
                             <th scope="col">Stock</th>
                             <th scope="col">Image</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Actions</th>
                         </tr>
                         </thead>
@@ -55,11 +56,12 @@
                                 <img th:src="@{'/product-images/' + ${product.imageName}}"
                                      width="50px" height="50px" alt="...">
                             </td>
+                            <td th:text="${product.isActive}"></td>
                             <td>
                                 <a th:href="@{'/admin/edit-product/' + ${product.id}}"
                                    class="btn btn-sm btn-success">Edit</a>
                                 <a th:href="@{'/admin/remove-product/' + ${product.id}}"
-                                        class="btn btn-sm btn-danger">Delete</a>
+                                        class="btn btn-sm btn-danger">Remove</a>
                             </td>
                         </tr>
                         </tbody>

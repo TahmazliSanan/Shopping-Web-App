@@ -29,10 +29,15 @@
                     <div class="card shadow-sm p-0 mb-5 bg-body-tertiary rounded">
                         <div class="card-body">
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action active"
-                                   aria-current="true">Categories</a>
+                                <p class="fs-5">Categories</p>
+                                <a th:href="@{'/product/list'}"
+                                   class="list-group-item list-group-item-action"
+                                   th:classappend="${parameterValue == ''} ? 'active' : ''"
+                                   aria-current="true">All</a>
                                 <a th:each="category : ${categoryList}" th:text="${category.name}"
-                                   href="#" class="list-group-item list-group-item-action"></a>
+                                   th:href="@{'/product/list?category=' + ${category.name}}"
+                                   th:classappend="${parameterValue == category.name} ? 'active' : ''"
+                                   class="list-group-item list-group-item-action"></a>
                             </div>
                         </div>
                     </div>
@@ -40,35 +45,41 @@
                 <div class="col-md-10">
                     <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                         <div class="card-body">
-                            <p class="fs-3 text-center">Products</p>
+                            <p class="fs-3 text-center">Product List</p>
                             <div class="row">
-                                <div class="col-md-3" th:each="product : ${productList}">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <img alt="..." width="100%" height="150px"
-                                                 th:src="@{'/product-images/' + ${product.imageName}}">
-                                            <p class="fs-5 text-center" th:text="${product.name}"></p>
-                                            <div class="row text-center">
-                                                <p class="fs-6 fw-bold">
+                                <th:block th:if="${productList.size > 0}">
+                                    <div class="col-md-3" th:each="product : ${productList}">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img alt="..." width="100%" height="150px"
+                                                     th:src="@{'/product-images/' + ${product.imageName}}">
+                                                <p class="fs-5 text-center" th:text="${product.name}"></p>
+                                                <div class="row text-center">
+                                                    <p class="fs-6 fw-bold">
                                                     <span>
                                                         [[${product.discountPrice}]] $
                                                     </span>
-                                                    <br>
-                                                    <span class="text-decoration-line-through text-secondary">
+                                                        <br>
+                                                        <span class="text-decoration-line-through text-secondary">
                                                         [[${product.price}]] $
                                                     </span>
-                                                    &nbsp;
-                                                    <span class="fs-6 text-success">
+                                                        &nbsp;
+                                                        <span class="fs-6 text-success">
                                                         [[${product.discount}]] % off
                                                     </span>
-                                                </p>
-                                                <a href="/product/details" class="btn btn-info col-md-6 offset-md-3">View
-                                                    Details
-                                                </a>
+                                                    </p>
+                                                    <a th:href="@{'/product/details/' + ${product.id}}"
+                                                       class="btn btn-info col-md-6 offset-md-3">
+                                                        View Details
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </th:block>
+                                <th:block th:unless="${productList.size > 0}">
+                                    <p class="fs-4 text-center mt-4 text-danger">Products are not available!</p>
+                                </th:block>
                             </div>
                         </div>
                     </div>
