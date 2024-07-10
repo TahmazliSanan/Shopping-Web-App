@@ -39,12 +39,14 @@
               </p>
               <p class="fs-5 fw-bold">
                 Price: [[${foundedProduct.discountPrice}]] $
-                <span class="fs-6 text-decoration-line-through text-secondary">
+                <th:block th:if="${foundedProduct.discount > 0}">
+                  <span class="fs-6 text-decoration-line-through text-secondary">
                   [[${foundedProduct.price}]] $
                 </span>
-                <span class="fs-6 text-success">
+                  <span class="fs-6 text-success">
                   [[${foundedProduct.discount}]] % Off
                 </span>
+                </th:block>
               </p>
               <div class="row">
                 <div class="col-md-4 text-success text-center p-2">
