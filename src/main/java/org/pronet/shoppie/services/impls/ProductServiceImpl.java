@@ -72,6 +72,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getActiveTopProductList() {
+        return productRepository.takeActiveTopProducts();
+    }
+
+    @Override
     public Product edit(Product product, MultipartFile file) throws IOException {
         Product dbProduct = getById(product.getId());
         String imageName = file.isEmpty() ? dbProduct.getImageName() : file.getOriginalFilename();

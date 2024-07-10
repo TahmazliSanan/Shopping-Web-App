@@ -11,6 +11,7 @@ public interface CategoryService {
     Category getById(Long id);
     List<Category> getList();
     List<Category> getActiveCategoryList();
+    List<Category> getActiveTopCategoryList();
     Category edit(Category category, MultipartFile file) throws IOException;
     Boolean remove(Long id);
     Boolean existsCategoryByName(String name);

@@ -64,6 +64,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> getActiveTopCategoryList() {
+        return categoryRepository.takeActiveTopCategories();
+    }
+
+    @Override
     public Category edit(Category category, MultipartFile file) throws IOException {
         Category dbCategory = getById(category.getId());
         String imageName = file.isEmpty() ? dbCategory.getImageName() : file.getOriginalFilename();

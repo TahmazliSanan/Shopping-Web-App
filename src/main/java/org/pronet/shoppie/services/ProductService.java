@@ -11,6 +11,7 @@ public interface ProductService {
     Product getById(Long id);
     List<Product> getList();
     List<Product> getActiveProductList(String category);
+    List<Product> getActiveTopProductList();
     Product edit(Product product, MultipartFile file) throws IOException;
     Boolean remove(Long id);
     Boolean existsProductByName(String name);
