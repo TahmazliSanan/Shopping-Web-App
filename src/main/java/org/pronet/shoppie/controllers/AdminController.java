@@ -72,11 +72,17 @@ public class AdminController {
             @ModelAttribute Category category,
             @RequestParam("file") MultipartFile file,
             HttpSession session) throws IOException {
-        Category updatedCategory = categoryService.edit(category, file);
-        if (!ObjectUtils.isEmpty(updatedCategory)) {
-            session.setAttribute("successMessage", "Category is updated successfully!");
+        Boolean isCategoryExist = categoryService.existsCategoryByName(category.getName());
+        if (isCategoryExist) {
+            session.setAttribute("errorMessage", "Category is already exist!");
+            return "redirect:/admin/edit-category";
         } else {
-            session.setAttribute("errorMessage", "Category is not updated!");
+            Category updatedCategory = categoryService.edit(category, file);
+            if (!ObjectUtils.isEmpty(updatedCategory)) {
+                session.setAttribute("successMessage", "Category is updated successfully!");
+            } else {
+                session.setAttribute("errorMessage", "Category is not updated!");
+            }
         }
         return "redirect:/admin/category-list";
     }
@@ -111,6 +117,7 @@ public class AdminController {
         Boolean isProductExist = productService.existsProductByName(product.getName());
         if (isProductExist) {
             session.setAttribute("errorMessage", "Product is already exist!");
+            return "redirect:/admin/add-product";
         } else {
             Product savedProduct = productService.add(product, file);
             if (!ObjectUtils.isEmpty(savedProduct)) {
@@ -145,11 +152,17 @@ public class AdminController {
             @ModelAttribute Product product,
             @RequestParam("file") MultipartFile file,
             HttpSession session) throws IOException {
-        Product updatedProduct = productService.edit(product, file);
-        if (!ObjectUtils.isEmpty(updatedProduct)) {
-            session.setAttribute("successMessage", "Product is updated successfully!");
+        Boolean isProductExist = productService.existsProductByName(product.getName());
+        if (isProductExist) {
+            session.setAttribute("errorMessage", "Product is already exist!");
+            return "redirect:/admin/edit-product";
         } else {
-            session.setAttribute("errorMessage", "Product is not updated!");
+            Product updatedProduct = productService.edit(product, file);
+            if (!ObjectUtils.isEmpty(updatedProduct)) {
+                session.setAttribute("successMessage", "Product is updated successfully!");
+            } else {
+                session.setAttribute("errorMessage", "Product is not updated!");
+            }
         }
         return "redirect:/admin/product-list";
     }
