@@ -34,114 +34,42 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-
         <div class="container">
             <div class="row">
-                <p class="text-center fs-4">Categories</p>
-                <div class="col-md-2">
-                    <div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-                        <div class="card-body text-center">
-                            <img src="/category-images/appli.png" width="65%"
-                                 height="140px" alt="...">
-                            <p>Electronics</p>
+                <p class="text-center fs-4">Top Categories</p>
+                <th:block th:if="${categoryList.size > 0}">
+                    <div th:each="category : ${categoryList}" class="col-md-3">
+                        <div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
+                            <div class="card-body text-center">
+                                <img th:src="@{'/category-images/' + ${category.imageName}}"
+                                     width="120px" height="80px" alt="...">
+                                <p th:text="${category.name}"></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-                        <div class="card-body text-center">
-                            <img src="/category-images/beuty.png" width="65%"
-                                 height="140px" alt="...">
-                            <p>Beauty</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-                        <div class="card-body text-center">
-                            <img src="/category-images/pant.png" width="65%"
-                                 height="140px" alt="...">
-                            <p>Clothes</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-                        <div class="card-body text-center">
-                            <img src="/category-images/laptop.jpg" width="65%"
-                                 height="140px" alt="...">
-                            <p>Laptop</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-                        <div class="card-body text-center">
-                            <img src="/category-images/mobile.png" width="65%"
-                                 height="140px" alt="...">
-                            <p>Mobile</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-                        <div class="card-body text-center">
-                            <img src="/category-images/groccery.jpg" width="65%"
-                                 height="140px" alt="...">
-                            <p>Grocery</p>
-                        </div>
-                    </div>
-                </div>
+                </th:block>
+                <th:block th:unless="${categoryList.size > 0}">
+                    <p class="fs-4 text-center mt-4 text-danger">Categories are not available!</p>
+                </th:block>
             </div>
         </div>
-
         <div class="container-fluid bg-light p-3">
             <div class="row">
                 <p class="text-center fs-4">Latest Products</p>
-                <div class="col-md-3">
-                    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-                        <div class="card-body text-center">
-                            <img alt="" src="/product-images/laptop.jpg" class=""
-                                 width="65%" height="140px">
-                            <p class="text-center">HP Laptop</p>
+                <th:block th:if="${productList.size > 0}">
+                    <div th:each="product : ${productList}" class="col-md-3">
+                        <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+                            <div class="card-body text-center">
+                                <img th:src="@{'/product-images/' + ${product.imageName}}"
+                                     width="50px" height="50px" alt="...">
+                                <p class="text-center" th:text="${product.name}"></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-                        <div class="card-body text-center">
-                            <img alt="" src="/product-images/laptop.jpg" class=""
-                                 width="65%" height="140px">
-                            <p class="text-center">HP Laptop</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-                        <div class="card-body text-center">
-                            <img alt="" src="/product-images/laptop.jpg" class=""
-                                 width="65%" height="140px">
-                            <p class="text-center">HP Laptop</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-                        <div class="card-body text-center">
-                            <img alt="" src="/product-images/laptop.jpg" class=""
-                                 width="65%" height="140px">
-                            <p class="text-center">HP Laptop</p>
-                        </div>
-                    </div>
-                </div>
+                </th:block>
+                <th:block th:unless="${productList.size > 0}">
+                    <p class="fs-4 text-center mt-4 text-danger">Products are not available!</p>
+                </th:block>
             </div>
         </div>
     </section>
