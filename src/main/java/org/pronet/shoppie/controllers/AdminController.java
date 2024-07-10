@@ -5,6 +5,7 @@ import org.pronet.shoppie.entities.Category;
 import org.pronet.shoppie.entities.Product;
 import org.pronet.shoppie.services.CategoryService;
 import org.pronet.shoppie.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -17,13 +18,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private final CategoryService categoryService;
-    private final ProductService productService;
-
-    public AdminController(CategoryService categoryService, ProductService productService) {
-        this.categoryService = categoryService;
-        this.productService = productService;
-    }
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/dashboard")
     public String dashboardPage() {

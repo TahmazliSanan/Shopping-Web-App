@@ -3,6 +3,7 @@ package org.pronet.shoppie.services.impls;
 import org.pronet.shoppie.entities.Category;
 import org.pronet.shoppie.repositories.CategoryRepository;
 import org.pronet.shoppie.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -19,11 +20,8 @@ import java.util.Objects;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    private final CategoryRepository categoryRepository;
-
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public Category add(Category category, MultipartFile file) throws IOException {

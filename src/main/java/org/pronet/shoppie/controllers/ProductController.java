@@ -4,6 +4,7 @@ import org.pronet.shoppie.entities.Category;
 import org.pronet.shoppie.entities.Product;
 import org.pronet.shoppie.services.CategoryService;
 import org.pronet.shoppie.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-    private final CategoryService categoryService;
-    private final ProductService productService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private ProductService productService;
 
     public ProductController(CategoryService categoryService, ProductService productService) {
         this.categoryService = categoryService;

@@ -3,6 +3,7 @@ package org.pronet.shoppie.services.impls;
 import org.pronet.shoppie.entities.Product;
 import org.pronet.shoppie.repositories.ProductRepository;
 import org.pronet.shoppie.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -19,11 +20,8 @@ import java.util.Objects;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    private final ProductRepository productRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public Product add(Product product, MultipartFile file) throws IOException {
