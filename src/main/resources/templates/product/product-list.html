@@ -59,14 +59,16 @@
                                                     <span>
                                                         [[${product.discountPrice}]] $
                                                     </span>
-                                                        <br>
-                                                        <span class="text-decoration-line-through text-secondary">
-                                                        [[${product.price}]] $
-                                                    </span>
-                                                        &nbsp;
-                                                        <span class="fs-6 text-success">
-                                                        [[${product.discount}]] % off
-                                                    </span>
+                                                        <th:block th:if="${product.discount > 0}">
+                                                            <br>
+                                                            <span class="text-decoration-line-through text-secondary">
+                                                            [[${product.price}]] $
+                                                        </span>
+                                                            &nbsp;
+                                                            <span class="fs-6 text-success">
+                                                            [[${product.discount}]] % off
+                                                        </span>
+                                                        </th:block>
                                                     </p>
                                                     <a th:href="@{'/product/details/' + ${product.id}}"
                                                        class="btn btn-info col-md-6 offset-md-3">
