@@ -2,6 +2,7 @@
 <html
         lang="en"
         xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         th:fragment="layout(content)">
 <head>
     <meta charset="UTF-8">
@@ -34,17 +35,34 @@
                     <a class="nav-link active" th:href="@{'/product/list'}">Products</a>
                 </li>
             </ul>
-
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{'/sign-up'}">Sign Up</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{'/sign-in'}">Sign In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{'/admin/dashboard'}">Admin</a>
-                </li>
+                <th:block th:if="${user == null}">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{'/sign-up'}">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{'/sign-in'}">Sign In</a>
+                    </li>
+                </th:block>
+                <th:block th:if="${user != null}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false" th:text="${user.fullName}">
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#">Profile</a>
+                            </li>
+                            <li>
+                                <a sec:authorize="hasAuthority('Admin')"
+                                   class="dropdown-item" th:href="@{'/admin/dashboard'}">Dashboard</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{'/logout'}">Sign Out</a>
+                            </li>
+                        </ul>
+                    </li>
+                </th:block>
             </ul>
         </div>
     </div>
