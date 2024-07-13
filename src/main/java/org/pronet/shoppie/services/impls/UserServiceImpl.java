@@ -16,7 +16,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,6 +33,7 @@ public class UserServiceImpl implements UserService {
         userEntity.setProfileImageName(imageName);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         userEntity.setRole("User");
+        userEntity.setIsEnabled(true);
         UserEntity savedUser = userRepository.save(userEntity);
         if (!ObjectUtils.isEmpty(savedUser)) {
             if (!Objects.requireNonNull(file).isEmpty()) {
@@ -51,6 +54,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<UserEntity> getList(String role) {
+        return userRepository.findAllByRole(role);
+    }
+
+    @Override
+    public Boolean editAccountStatus(Long id, Boolean status) {
+        Optional<UserEntity> foundedUser = userRepository.findById(id);
+        if (foundedUser.isPresent()) {
+            UserEntity user = foundedUser.get();
+            user.setIsEnabled(status);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 
     @Override
