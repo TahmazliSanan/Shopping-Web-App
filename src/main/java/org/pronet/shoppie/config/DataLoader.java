@@ -28,9 +28,11 @@ public class DataLoader implements CommandLineRunner {
                     "AZE",
                     "1148",
                     "Baku, Azerbaijan",
-                    passwordEncoder.encode("AdminOfShoppier2002")
+                    passwordEncoder.encode("AdminOfShoppier2002"),
+                    null,
+                    "Admin",
+                    true
             );
-            admin.setRole("Admin");
             userRepository.save(admin);
         }
     }
