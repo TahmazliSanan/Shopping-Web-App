@@ -179,4 +179,25 @@ public class AdminController {
         }
         return "redirect:/admin/product-list";
     }
+
+    @GetMapping("/user-list")
+    public String userListPage(Model model) {
+        List<UserEntity> userList = userService.getList("User");
+        model.addAttribute("userList", userList);
+        return "admin/user/user-list";
+    }
+
+    @GetMapping("/edit-account-status")
+    public String editAccountStatus(
+            @RequestParam Boolean status,
+            @RequestParam Long id,
+            HttpSession session) {
+        Boolean result = userService.editAccountStatus(id, status);
+        if (result) {
+            session.setAttribute("successMessage", "User's account status is updated successfully!");
+        } else {
+            session.setAttribute("errorMessage", "User's account status is not updated!");
+        }
+        return "redirect:/admin/user-list";
+    }
 }
