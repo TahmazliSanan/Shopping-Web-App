@@ -26,17 +26,5 @@ public class UserEntity {
     private String password;
     private String profileImageName;
     private String role;
-
-    public UserEntity(Long id, String fullName, String email, String mobileNumber,
-                      String city, String state, String pinCode, String address, String password) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.mobileNumber = mobileNumber;
-        this.city = city;
-        this.state = state;
-        this.pinCode = pinCode;
-        this.address = address;
-        this.password = password;
-    }
+    private Boolean isEnabled;
 }
