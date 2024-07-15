@@ -31,7 +31,10 @@ public class DataLoader implements CommandLineRunner {
                     passwordEncoder.encode("AdminOfShoppier2002"),
                     null,
                     "Admin",
-                    true
+                    true,
+                    true,
+                    0,
+                    null
             );
             userRepository.save(admin);
         }
