@@ -12,4 +12,8 @@ public interface UserService {
     List<UserEntity> getList(String role);
     Boolean editAccountStatus(Long id, Boolean status);
     Boolean existsUserByEmail(String email);
+    void increaseFailedAttempt(UserEntity userEntity);
+    Boolean unlockAccountTimeExpired(UserEntity userEntity);
+    void userAccountLock(UserEntity userEntity);
+    void resetAttempt(Long id);
 }
