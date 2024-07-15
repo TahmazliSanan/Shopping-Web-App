@@ -1,9 +1,11 @@
 package org.pronet.shoppie.config;
 
 import org.pronet.shoppie.services.impls.UserDetailsServiceImpl;
+import org.pronet.shoppie.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -18,6 +20,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class SecurityConfig {
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
+    @Autowired
+    @Lazy
+    private AuthenticationFailureHandlerImpl authenticationFailureHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -43,22 +48,18 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/", "/category/list", "/product/list",
-                                "/sign-up", "/sign-in")
+                        .requestMatchers(AppConstants.NON_ACCOUNT_AUTH_PATTERNS)
                         .permitAll())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/css/**", "/carousel/**", "/category-images/**",
-                                "/product-images/**", "/profile-images/**")
-                        .permitAll())
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers("/product/details/{id}")
+                        .requestMatchers(AppConstants.USER_ACCOUNT_AUTH_PATTERNS)
                         .hasAuthority("User"))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/admin/**")
+                        .requestMatchers(AppConstants.ADMIN_ACCOUNT_AUTH_PATTERNS)
                         .hasAuthority("Admin"))
                 .formLogin(form -> form
                         .loginPage("/sign-in")
                         .loginProcessingUrl("/login")
+                        .failureHandler(authenticationFailureHandler)
                         .successHandler(authenticationSuccessHandler)
                 )
                 .logout(LogoutConfigurer::permitAll);
