@@ -22,7 +22,7 @@ public class DataLoader implements CommandLineRunner {
             admin = new UserEntity(
                     1L,
                     "Sanan Tahmazli",
-                    "sanan.tahmazli2329@gmail.com",
+                    "tehmezlisenan11@gmail.com",
                     "+123456789",
                     "Baku",
                     "AZE",
@@ -34,6 +34,7 @@ public class DataLoader implements CommandLineRunner {
                     true,
                     true,
                     0,
+                    null,
                     null
             );
             userRepository.save(admin);
