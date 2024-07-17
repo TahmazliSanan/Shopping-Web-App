@@ -9,11 +9,13 @@ import java.util.List;
 public interface UserService {
     UserEntity signUp(UserEntity userEntity, MultipartFile file) throws IOException;
     UserEntity getUserByEmail(String email);
+    UserEntity getUserByToken(String token);
     List<UserEntity> getList(String role);
+    void updateUser(UserEntity userEntity);
     Boolean editAccountStatus(Long id, Boolean status);
     Boolean existsUserByEmail(String email);
     void increaseFailedAttempt(UserEntity userEntity);
     Boolean unlockAccountTimeExpired(UserEntity userEntity);
     void userAccountLock(UserEntity userEntity);
-    void resetAttempt(Long id);
+    void updateUserResetToken(String email, String resetToken);
 }

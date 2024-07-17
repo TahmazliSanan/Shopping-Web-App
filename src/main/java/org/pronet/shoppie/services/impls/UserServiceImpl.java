@@ -61,8 +61,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity getUserByToken(String token) {
+        return userRepository.findByResetToken(token);
+    }
+
+    @Override
     public List<UserEntity> getList(String role) {
         return userRepository.findAllByRole(role);
+    }
+
+    @Override
+    public void updateUser(UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 
     @Override
@@ -112,7 +122,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void resetAttempt(Long id) {
-
+    public void updateUserResetToken(String email, String resetToken) {
+        UserEntity foundedUser = userRepository.findByEmail(email);
+        foundedUser.setResetToken(resetToken);
+        userRepository.save(foundedUser);
     }
 }
