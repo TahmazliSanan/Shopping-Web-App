@@ -1,7 +1,7 @@
 package org.pronet.shoppie.config;
 
 import org.pronet.shoppie.services.impls.UserDetailsServiceImpl;
-import org.pronet.shoppie.utils.AppConstants;
+import org.pronet.shoppie.utils.RequestMatcherPatterns;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,13 +48,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(AppConstants.NON_ACCOUNT_AUTH_PATTERNS)
+                        .requestMatchers(RequestMatcherPatterns.NON_AUTH_MATCHERS)
                         .permitAll())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(AppConstants.USER_ACCOUNT_AUTH_PATTERNS)
+                        .requestMatchers(RequestMatcherPatterns.USER_AUTH_MATCHERS)
                         .hasAuthority("User"))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(AppConstants.ADMIN_ACCOUNT_AUTH_PATTERNS)
+                        .requestMatchers(RequestMatcherPatterns.ADMIN_AUTH_MATCHERS)
                         .hasAuthority("Admin"))
                 .formLogin(form -> form
                         .loginPage("/sign-in")
@@ -65,4 +65,6 @@ public class SecurityConfig {
                 .logout(LogoutConfigurer::permitAll);
         return security.build();
     }
+
+
 }
