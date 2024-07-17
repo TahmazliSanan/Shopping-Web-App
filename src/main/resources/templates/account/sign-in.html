@@ -58,10 +58,11 @@
                             </form>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="#" class="text-decoration-none">Forgot Password?</a>
+                            <a th:href="@{'/forgot-password-view'}"
+                               class="text-decoration-none">Forgot Password?</a>
                             <br>
                             Don't you have an account?
-                            <a href="/sign-up" class="text-decoration-none">Sign Up</a>
+                            <a th:href="@{'/sign-up-view'}" class="text-decoration-none">Sign Up</a>
                         </div>
                     </div>
                 </div>
