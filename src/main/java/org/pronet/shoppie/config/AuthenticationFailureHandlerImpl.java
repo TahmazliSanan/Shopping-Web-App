@@ -27,23 +27,27 @@ public class AuthenticationFailureHandlerImpl extends SimpleUrlAuthenticationFai
             throws IOException, ServletException {
         String email = request.getParameter("username");
         UserEntity foundedUser = userRepository.findByEmail(email);
-        if (foundedUser.getIsEnabled()) {
-            if (foundedUser.getAccountNonLocked()) {
-                if (foundedUser.getFailedAttempt() < AppConstants.ATTEMPT_COUNT) {
-                    userService.increaseFailedAttempt(foundedUser);
+        if (foundedUser != null) {
+            if (foundedUser.getIsEnabled()) {
+                if (foundedUser.getAccountNonLocked()) {
+                    if (foundedUser.getFailedAttempt() < AppConstants.ATTEMPT_COUNT) {
+                        userService.increaseFailedAttempt(foundedUser);
+                    } else {
+                        userService.userAccountLock(foundedUser);
+                        exception = new LockedException("Your account is locked! You have 3 failed attempt!");
+                    }
                 } else {
-                    userService.userAccountLock(foundedUser);
-                    exception = new LockedException("Your account is locked! You have 3 failed attempt!");
+                    if (userService.unlockAccountTimeExpired(foundedUser)) {
+                        exception = new LockedException("Your account is unlocked! Please try to login!");
+                    } else {
+                        exception = new LockedException("Your account is locked! Please try after sometimes!");
+                    }
                 }
             } else {
-                if (userService.unlockAccountTimeExpired(foundedUser)) {
-                    exception = new LockedException("Your account is unlocked! Please try to login!");
-                } else {
-                    exception = new LockedException("Your account is locked! Please try after sometimes!");
-                }
+                exception = new LockedException("Your account is inactive!");
             }
         } else {
-            exception = new LockedException("Your account is inactive!");
+            exception = new LockedException("Email is not exist!");
         }
         super.setDefaultFailureUrl("/sign-in?error");
         super.onAuthenticationFailure(request, response, exception);
