@@ -1,6 +1,6 @@
 package org.pronet.shoppie.services.impls;
 
-import org.pronet.shoppie.config.CustomUser;
+import org.pronet.shoppie.configs.CustomUser;
 import org.pronet.shoppie.entities.UserEntity;
 import org.pronet.shoppie.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

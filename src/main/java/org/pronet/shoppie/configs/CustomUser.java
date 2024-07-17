@@ -1,4 +1,4 @@
-package org.pronet.shoppie.config;
+package org.pronet.shoppie.configs;
 
 import org.pronet.shoppie.entities.UserEntity;
 import org.springframework.security.core.GrantedAuthority;

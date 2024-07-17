@@ -1,4 +1,4 @@
-package org.pronet.shoppie.config;
+package org.pronet.shoppie.configs;
 
 import org.pronet.shoppie.services.impls.UserDetailsServiceImpl;
 import org.pronet.shoppie.utils.RequestMatcherPatterns;
