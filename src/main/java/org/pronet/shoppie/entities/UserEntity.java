@@ -32,4 +32,5 @@ public class UserEntity {
     private Boolean accountNonLocked;
     private Integer failedAttempt;
     private Date lockTime;
+    private String resetToken;
 }
