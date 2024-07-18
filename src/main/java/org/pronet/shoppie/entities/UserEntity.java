@@ -26,6 +26,8 @@ public class UserEntity {
     private String pinCode;
     private String address;
     private String password;
+    @Transient
+    private String confirmPassword;
     private String profileImageName;
     private String role;
     private Boolean isEnabled;
