@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
         String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
         userEntity.setProfileImageName(imageName);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        userEntity.setConfirmPassword(passwordEncoder.encode(userEntity.getConfirmPassword()));
         userEntity.setRole("User");
         userEntity.setIsEnabled(true);
         userEntity.setAccountNonLocked(true);
