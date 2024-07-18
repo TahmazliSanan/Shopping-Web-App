@@ -29,6 +29,7 @@ public class DataLoader implements CommandLineRunner {
                     "1148",
                     "Baku, Azerbaijan",
                     passwordEncoder.encode("AdminOfShoppier2002"),
+                    passwordEncoder.encode("AdminOfShoppier2002"),
                     null,
                     "Admin",
                     true,
