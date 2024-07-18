@@ -57,11 +57,16 @@ public class AccountController {
             session.setAttribute("errorMessage", "User is already exist!");
             return "redirect:/sign-up-view";
         } else {
-            UserEntity savedUser = userService.signUp(userEntity, file);
-            if (!ObjectUtils.isEmpty(savedUser)) {
-                session.setAttribute("successMessage", "Registration is completed successfully!");
+            if (!(userEntity.getPassword().equals(userEntity.getConfirmPassword()))) {
+                session.setAttribute("errorMessage", "Passwords don't match!");
+                return "redirect:/sign-up-view";
             } else {
-                session.setAttribute("errorMessage", "Registration is not completed!");
+                UserEntity savedUser = userService.signUp(userEntity, file);
+                if (!ObjectUtils.isEmpty(savedUser)) {
+                    session.setAttribute("successMessage", "Registration is completed successfully!");
+                } else {
+                    session.setAttribute("errorMessage", "Registration is not completed!");
+                }
             }
         }
         return "redirect:/sign-in";
