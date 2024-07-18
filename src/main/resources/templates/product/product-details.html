@@ -10,6 +10,22 @@
     <section>
       <div class="container card-sh" style="margin-top: 70px; margin-bottom: 100px">
         <div class="col-md-12 p-5">
+          <th:block th:if="${session.successMessage}">
+            <div class="alert alert-success alert-dismissible fade show"
+                 role="alert">
+              [[${session.successMessage}]]
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
+          </th:block>
+          <th:block th:if="${session.errorMessage}">
+            <div class="alert alert-danger alert-dismissible fade show"
+                 role="alert">
+              [[${session.errorMessage}]]
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
+          </th:block>
           <div class="row">
             <div class="col-md-6 text-end">
               <img alt="" th:src="@{'/product-images/' + ${foundedProduct.imageName}}"
@@ -60,7 +76,8 @@
                 </div>
               </div>
               <th:block th:if="${foundedProduct.stock > 0}">
-                <a href="#" class="btn btn-secondary col-md-12">Add To Cart</a>
+                <a th:href="@{'/cart/add-product?productId='+${foundedProduct.id} + '&userId='+${user.id}}"
+                   class="btn btn-secondary col-md-12">Add To Cart</a>
               </th:block>
               <th:block th:unless="${foundedProduct.stock > 0}">
                 <a href="#" class="btn text-white btn-warning col-md-12">Out of Stock</a>
