@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/base/base-layout::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>My Order</title>
+</head>
+<body>
+<section>
+    <div class="container mt-5 p-5">
+        <form action="/user/save-order" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3 row">
+                        <p class="text-center fs-4">Billing Address</p>
+                        <hr>
+                        <div class="col p-1">
+                            <label for="firstName">First Name</label>
+                            <input id="firstName" type="text" name="firstName"
+                                   required class="form-control mt-1">
+                        </div>
+                        <div class="col p-1">
+                            <label for="lastName">Last Name</label>
+                            <input id="lastName" type="text" name="lastName"
+                                   required class="form-control mt-1">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col p-1">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" name="email"
+                                   required class="form-control col">
+                        </div>
+                        <div class="col p-1">
+                            <label for="mobileNumber">Mobile Number</label>
+                            <input id="mobileNumber" type="tel" name="mobileNumber"
+                                   required class="form-control col ms-2">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col p-1">
+                            <label for="address">Address</label>
+                            <input id="address" type="text" name="address"
+                                   required class="form-control col">
+                        </div>
+                        <div class="col p-1">
+                            <label for="city">City</label>
+                            <input id="city" type="text" name="city"
+                                   required class="form-control col ms-2">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col p-1">
+                            <label for="state">State</label>
+                            <input id="state" type="text" name="state"
+                                   required class="form-control col">
+                        </div>
+                        <div class="col p-1">
+                            <label for="pinCode">PIN Code</label>
+                            <input id="pinCode" type="text" name="pinCode"
+                                   required class="form-control col ms-2">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-center fs-4">Payment Type</p>
+                    <hr>
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td>Total price</td>
+                                        <td>:</td>
+                                        <td>[[${orderPrice}]] $</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delivery Fee</td>
+                                        <td>:</td>
+                                        <td>250 $</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tax</td>
+                                        <td>:</td>
+                                        <td>100 $</td>
+                                    </tr>
+                                    <tr class="border-top">
+                                        <td>Total Price</td>
+                                        <td>:</td>
+                                        <td>[[${totalOrderPrice}]] $</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card shadow p-3 mb-5 mt-2 bg-body-tertiary rounded">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="paymentType" class="form-label">Select Payment Type</label>
+                                <select id="paymentType" required name="paymentType" class="form-control">
+                                    <option>--- Select ---</option>
+                                    <option value="CashOnDelivery">Cash On Delivery</option>
+                                    <option value="OnlinePayment">Online Payment</option>
+                                </select>
+                            </div>
+                            <button class="btn bg-primary text-white col-md-12">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
