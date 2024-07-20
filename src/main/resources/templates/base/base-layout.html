@@ -44,6 +44,12 @@
                     </li>
                 </th:block>
                 <th:block th:if="${user != null}">
+                    <a th:href="@{'/cart/show-my-cart'}" class="nav-link active">
+                        <span class="translate-large badge rounded-pill bg-danger">
+                            [[${countCart}]]
+                        </span>
+                        My Cart
+                    </a>
                     <li class="nav-item dropdown">
                         <a class="nav-link active dropdown-toggle" href="#" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false" th:text="${user.fullName}">
