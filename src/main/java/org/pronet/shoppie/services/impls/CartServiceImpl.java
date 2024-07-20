@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +54,43 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<Cart> getListByUser(Long id) {
-        return List.of();
+        List<Cart> cartList = cartRepository.findByUserId(id);
+        List<Cart> updatedCartList = new ArrayList<>();
+        double totalOrderPrice = 0.0;
+        for (Cart cart : cartList) {
+            double totalPrice = cart.getProduct().getDiscountPrice() * cart.getQuantity();
+            cart.setTotalPrice(totalPrice);
+            totalOrderPrice += totalPrice;
+            cart.setTotalOrderPrice(totalOrderPrice);
+            updatedCartList.add(cart);
+        }
+        return updatedCartList;
+    }
+
+    @Override
+    public Long getCountCart(Long userId) {
+        return cartRepository.countByUserId(userId);
+    }
+
+    @Override
+    public void updateQuantity(String symbol, Long cartId) {
+        Optional<Cart> foundedCart = cartRepository.findById(cartId);
+        if (foundedCart.isPresent()) {
+            Cart cart = foundedCart.get();
+            long updatedQuantity;
+            if (symbol.equalsIgnoreCase("decrease")) {
+                updatedQuantity = cart.getQuantity() - 1;
+                if (updatedQuantity <= 0) {
+                    cartRepository.delete(cart);
+                } else {
+                    cart.setQuantity(updatedQuantity);
+                    cartRepository.save(cart);
+                }
+            } else {
+                updatedQuantity = cart.getQuantity() + 1;
+                cart.setQuantity(updatedQuantity);
+                cartRepository.save(cart);
+            }
+        }
     }
 }
