@@ -23,7 +23,7 @@ import java.security.Principal;
 import java.util.UUID;
 
 @Controller
-public class AccountController {
+public class AccountController extends BaseController {
     @Autowired
     private UserService userService;
     @Autowired
@@ -31,13 +31,9 @@ public class AccountController {
     @Autowired
     private AccountUtils accountUtils;
 
-    @ModelAttribute
+    @Override
     public void getUserDetails(Principal principal, Model model) {
-        if (principal != null) {
-            String email = principal.getName();
-            UserEntity user = userService.getUserByEmail(email);
-            model.addAttribute("user", user);
-        }
+        super.getUserDetails(principal, model);
     }
 
     @GetMapping("/sign-up-view")

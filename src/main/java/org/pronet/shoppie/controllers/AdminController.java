@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController extends BaseController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
@@ -28,13 +28,9 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @ModelAttribute
+    @Override
     public void getUserDetails(Principal principal, Model model) {
-        if (principal != null) {
-            String email = principal.getName();
-            UserEntity user = userService.getUserByEmail(email);
-            model.addAttribute("user", user);
-        }
+        super.getUserDetails(principal, model);
     }
 
     @GetMapping("/dashboard")

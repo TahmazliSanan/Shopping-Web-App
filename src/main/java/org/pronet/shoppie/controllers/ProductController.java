@@ -2,10 +2,8 @@ package org.pronet.shoppie.controllers;
 
 import org.pronet.shoppie.entities.Category;
 import org.pronet.shoppie.entities.Product;
-import org.pronet.shoppie.entities.UserEntity;
 import org.pronet.shoppie.services.CategoryService;
 import org.pronet.shoppie.services.ProductService;
-import org.pronet.shoppie.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,21 +14,15 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/product")
-public class ProductController {
+public class ProductController extends BaseController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
     private ProductService productService;
-    @Autowired
-    private UserService userService;
 
-    @ModelAttribute
+    @Override
     public void getUserDetails(Principal principal, Model model) {
-        if (principal != null) {
-            String email = principal.getName();
-            UserEntity user = userService.getUserByEmail(email);
-            model.addAttribute("user", user);
-        }
+        super.getUserDetails(principal, model);
     }
 
     public ProductController(CategoryService categoryService, ProductService productService) {
