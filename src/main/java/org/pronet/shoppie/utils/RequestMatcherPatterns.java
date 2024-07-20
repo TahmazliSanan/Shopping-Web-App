@@ -9,7 +9,7 @@ public class RequestMatcherPatterns {
             "/forgot-password", "/forgot-password-view", "/reset-password"
     };
     public static final String[] USER_AUTH_MATCHERS = {
-            "/product/details/{id}", "/cart/**"
+            "/product/details/{id}", "/cart/**", "/order-cart"
     };
     public static final String[] ADMIN_AUTH_MATCHERS = {
             "/admin/**"
