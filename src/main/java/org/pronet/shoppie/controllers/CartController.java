@@ -39,7 +39,7 @@ public class CartController extends BaseController {
     }
 
     @GetMapping("/add-product")
-    public String addToCart(
+    public String addToCartPage(
             @RequestParam Long productId,
             @RequestParam Long userId,
             HttpSession session) {
@@ -65,7 +65,7 @@ public class CartController extends BaseController {
     }
 
     @GetMapping("/update-quantity")
-    public String updateCartQuantity(
+    public String updateCartQuantityPage(
             @RequestParam String symbol,
             @RequestParam Long cartId) {
         cartService.updateQuantity(symbol, cartId);

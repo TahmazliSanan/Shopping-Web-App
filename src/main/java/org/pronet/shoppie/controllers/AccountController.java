@@ -114,7 +114,7 @@ public class AccountController extends BaseController {
     }
 
     @PostMapping("/reset-password")
-    public String resetPasswordPage(
+    public String resetPassword(
             @RequestParam String token,
             @RequestParam String password,
             Model model) {

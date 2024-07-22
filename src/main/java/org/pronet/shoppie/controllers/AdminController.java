@@ -184,7 +184,7 @@ public class AdminController extends BaseController {
     }
 
     @GetMapping("/edit-account-status")
-    public String editAccountStatus(
+    public String editAccountStatusPage(
             @RequestParam Boolean status,
             @RequestParam Long id,
             HttpSession session) {
