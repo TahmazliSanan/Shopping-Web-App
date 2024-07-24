@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -25,7 +25,7 @@ public class Order {
     private Product product;
     @OneToOne(cascade = CascadeType.ALL)
     private OrderAddress orderAddress;
-    private Date orderDate;
+    private LocalDate orderDate;
     private Double price;
     private Long quantity;
     private String status;
