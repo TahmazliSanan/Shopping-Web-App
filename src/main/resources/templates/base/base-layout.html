@@ -59,6 +59,9 @@
                             <li>
                                 <a class="dropdown-item" href="#">Profile</a>
                             </li>
+                            <li th:if="${user.role == 'User'}">
+                                <a class="dropdown-item" th:href="@{'/order/my-orders'}">My Orders</a>
+                            </li>
                             <li th:if="${user.role == 'Admin'}">
                                 <a class="dropdown-item" th:href="@{'/admin/dashboard'}">Dashboard</a>
                             </li>
