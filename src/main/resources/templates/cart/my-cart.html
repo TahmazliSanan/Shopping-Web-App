@@ -64,7 +64,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="text-center">
+                <div th:if="${cartList.size() > 0}" class="text-center">
                     <a th:href="@{'/order/view'}" class="btn btn-info">Proceed Payment</a>
                 </div>
             </div>
