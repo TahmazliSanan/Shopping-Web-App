@@ -11,8 +11,9 @@ import org.pronet.shoppie.utils.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,9 +29,9 @@ public class OrderServiceImpl implements OrderService {
         for (Cart cart : cartList) {
             Order order = new Order();
             order.setOrderId(UUID.randomUUID().toString());
-            cart.setUser(cart.getUser());
+            order.setUser(cart.getUser());
             order.setProduct(cart.getProduct());
-            order.setOrderDate(new Date());
+            order.setOrderDate(LocalDate.now());
             order.setPrice(cart.getProduct().getDiscountPrice());
             order.setQuantity(cart.getQuantity());
             order.setStatus(OrderStatus.IN_PROGRESS.getName());
@@ -43,12 +44,29 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public List<Order> getListByUser(Long id) {
+        return orderRepository.findByUserId(id);
+    }
+
+    @Override
+    public Boolean updateOrderStatus(Long id, String status) {
+        Optional<Order> foundedOrder = orderRepository.findById(id);
+        if (foundedOrder.isPresent()) {
+            Order order = foundedOrder.get();
+            order.setStatus(status);
+            orderRepository.save(order);
+            return true;
+        }
+        return false;
+    }
+
     private static OrderAddress getOrderAddress(OrderRequest orderRequest) {
         OrderAddress orderAddress = new OrderAddress();
         orderAddress.setFirstName(orderRequest.getFirstName());
         orderAddress.setLastName(orderRequest.getLastName());
         orderAddress.setEmail(orderRequest.getEmail());
-        orderAddress.setMobileNumber(orderRequest.getMobileNo());
+        orderAddress.setMobileNumber(orderRequest.getMobileNumber());
         orderAddress.setAddress(orderRequest.getAddress());
         orderAddress.setCity(orderRequest.getCity());
         orderAddress.setState(orderRequest.getState());
