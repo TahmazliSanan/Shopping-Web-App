@@ -9,6 +9,5 @@ public interface OrderService {
     void saveOrder(Long userId, OrderRequest orderRequest);
     List<Order> getList();
     List<Order> getListByUser(Long id);
-    Boolean updateOrderStatus(Long id, String statusResult);
     Boolean updateOrderStatus(Long id, Integer status);
 }
