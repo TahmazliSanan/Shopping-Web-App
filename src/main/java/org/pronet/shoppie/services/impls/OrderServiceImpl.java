@@ -55,15 +55,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Boolean updateOrderStatus(Long id, String status) {
+    public Boolean updateOrderStatus(Long id, String statusResult) {
         Optional<Order> foundedOrder = orderRepository.findById(id);
         if (foundedOrder.isPresent()) {
             Order order = foundedOrder.get();
-            order.setStatus(status);
+            order.setStatus(statusResult);
             orderRepository.save(order);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Boolean updateOrderStatus(Long id, Integer status) {
+        OrderStatus[] orderStatusValueList = OrderStatus.values();
+        String statusResult = null;
+        for (OrderStatus orderStatus : orderStatusValueList) {
+            if (orderStatus.getId().equals(status)) {
+                statusResult = orderStatus.getName();
+            }
+        }
+        return updateOrderStatus(id, statusResult);
     }
 
     private static OrderAddress getOrderAddress(OrderRequest orderRequest) {
