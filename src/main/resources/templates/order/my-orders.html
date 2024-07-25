@@ -31,6 +31,7 @@
                 <table class="table table-bordered card-sh">
                     <thead>
                         <tr>
+                            <th scope="col">Order ID</th>
                             <th scope="col">Date</th>
                             <th scope="col">Product Details</th>
                             <th scope="col">Price</th>
@@ -40,26 +41,27 @@
                     </thead>
                     <tbody>
                         <tr th:each="order : ${orderList}">
-                        <td th:text="${order.orderDate}"></td>
-                        <td th:text="${order.product.name}"></td>
-                        <td>
-                            Quantity : [[${order.quantity}]]
-                            <br>
-                            Price : [[${order.price}]] $
-                            <br>
-                            Total Price : [[${order.quantity * order.price}]] $
-                        </td>
-                        <td th:text="${order.status}"></td>
-                        <td>
-                            <th:block th:if="${order.status != 'Cancelled'}">
-                                <a th:href="@{'/order/update-status?id=' + ${order.id} + '&status=6'}"
-                                   class="btn btn-sm btn-danger">Cancel</a>
-                            </th:block>
-                            <th:block th:unless="${order.status != 'Cancelled'}">
-                                <a href="#" class="btn btn-sm btn-danger disabled">Cancel</a>
-                            </th:block>
-                        </td>
-                    </tr>
+                            <td th:text="${order.orderId}"></td>
+                            <td th:text="${order.orderDate}"></td>
+                            <td th:text="${order.product.name}"></td>
+                            <td>
+                                Quantity : [[${order.quantity}]]
+                                <br>
+                                Price : [[${order.price}]] $
+                                <br>
+                                Total Price : [[${order.quantity * order.price}]] $
+                            </td>
+                            <td th:text="${order.status}"></td>
+                            <td>
+                                <th:block th:if="${order.status != 'Cancelled'}">
+                                    <a th:href="@{'/order/update-status?id=' + ${order.id} + '&status=6'}"
+                                    class="btn btn-sm btn-danger">Cancel</a>
+                                </th:block>
+                                <th:block th:unless="${order.status != 'Cancelled'}">
+                                    <a href="#" class="btn btn-sm btn-danger disabled">Cancel</a>
+                                </th:block>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
