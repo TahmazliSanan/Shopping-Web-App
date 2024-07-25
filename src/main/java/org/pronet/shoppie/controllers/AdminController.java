@@ -2,9 +2,11 @@ package org.pronet.shoppie.controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.pronet.shoppie.entities.Category;
+import org.pronet.shoppie.entities.Order;
 import org.pronet.shoppie.entities.Product;
 import org.pronet.shoppie.entities.UserEntity;
 import org.pronet.shoppie.services.CategoryService;
+import org.pronet.shoppie.services.OrderService;
 import org.pronet.shoppie.services.ProductService;
 import org.pronet.shoppie.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class AdminController extends BaseController {
     private ProductService productService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
     @Override
     public void getUserDetails(Principal principal, Model model) {
@@ -195,5 +199,26 @@ public class AdminController extends BaseController {
             session.setAttribute("errorMessage", "User's account status is not updated!");
         }
         return "redirect:/admin/user-list";
+    }
+
+    @GetMapping("/order-list")
+    public String orderListPage(Model model) {
+        List<Order> orderList = orderService.getList();
+        model.addAttribute("orderList", orderList);
+        return "admin/order/order-list";
+    }
+
+    @PostMapping("/update-order-status")
+    public String updateOrderStatusPage(
+            @RequestParam Long id,
+            @RequestParam Integer status,
+            HttpSession session) {
+        Boolean updatedOrder = orderService.updateOrderStatus(id, status);
+        if (updatedOrder) {
+            session.setAttribute("successMessage", "Status is updated successfully!");
+        } else {
+            session.setAttribute("errorMessage", "Status is not updated!");
+        }
+        return "redirect:/admin/order-list";
     }
 }
