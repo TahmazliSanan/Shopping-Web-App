@@ -8,7 +8,6 @@ import org.pronet.shoppie.entities.UserEntity;
 import org.pronet.shoppie.services.CartService;
 import org.pronet.shoppie.services.OrderService;
 import org.pronet.shoppie.services.UserService;
-import org.pronet.shoppie.utils.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,14 +81,7 @@ public class OrderController extends BaseController {
             @RequestParam Long id,
             @RequestParam Integer status,
             HttpSession session) {
-        OrderStatus[] orderStatusValueList = OrderStatus.values();
-        String statusResult = null;
-        for (OrderStatus orderStatus : orderStatusValueList) {
-                if (orderStatus.getId().equals(status)) {
-                statusResult = orderStatus.getName();
-            }
-        }
-        Boolean updatedOrder = orderService.updateOrderStatus(id, statusResult);
+        Boolean updatedOrder = orderService.updateOrderStatus(id, status);
         if (updatedOrder) {
             session.setAttribute("successMessage", "Status is updated successfully!");
         } else {
