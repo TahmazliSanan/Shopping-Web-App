@@ -1,5 +1,6 @@
 package org.pronet.shoppie.services.impls;
 
+import jakarta.mail.MessagingException;
 import org.pronet.shoppie.entities.Cart;
 import org.pronet.shoppie.entities.Order;
 import org.pronet.shoppie.entities.OrderAddress;
@@ -7,10 +8,12 @@ import org.pronet.shoppie.entities.OrderRequest;
 import org.pronet.shoppie.repositories.CartRepository;
 import org.pronet.shoppie.repositories.OrderRepository;
 import org.pronet.shoppie.services.OrderService;
+import org.pronet.shoppie.utils.AccountUtils;
 import org.pronet.shoppie.utils.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -22,9 +25,11 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
+    private AccountUtils accountUtils;
 
     @Override
-    public void saveOrder(Long userId, OrderRequest orderRequest) {
+    public void saveOrder(Long userId, OrderRequest orderRequest) throws MessagingException, UnsupportedEncodingException {
         List<Cart> cartList = cartRepository.findByUserId(userId);
         for (Cart cart : cartList) {
             Order order = new Order();
@@ -36,11 +41,10 @@ public class OrderServiceImpl implements OrderService {
             order.setQuantity(cart.getQuantity());
             order.setStatus(OrderStatus.IN_PROGRESS.getName());
             order.setPaymentType(orderRequest.getPaymentType());
-
             OrderAddress orderAddress = getOrderAddress(orderRequest);
-
             order.setOrderAddress(orderAddress);
-            orderRepository.save(order);
+            Order savedOrder = orderRepository.save(order);
+            accountUtils.sendMailForOrderProcess(savedOrder, "Successful!");
         }
     }
 
@@ -55,7 +59,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Boolean updateOrderStatus(Long id, Integer status) {
+    public Order updateOrderStatus(Long id, Integer status) throws MessagingException,
+            UnsupportedEncodingException {
         OrderStatus[] orderStatusValueList = OrderStatus.values();
         String statusResult = null;
         for (OrderStatus orderStatus : orderStatusValueList) {
@@ -79,14 +84,16 @@ public class OrderServiceImpl implements OrderService {
         return orderAddress;
     }
 
-    private Boolean updateOrderStatusResult(Long id, String statusResult) {
+    private Order updateOrderStatusResult(Long id, String statusResult)
+            throws MessagingException, UnsupportedEncodingException {
         Optional<Order> foundedOrder = orderRepository.findById(id);
         if (foundedOrder.isPresent()) {
             Order order = foundedOrder.get();
             order.setStatus(statusResult);
-            orderRepository.save(order);
-            return true;
+            Order updatedOrder = orderRepository.save(order);
+            accountUtils.sendMailForOrderProcess(updatedOrder, statusResult);
+            return updatedOrder;
         }
-        return false;
+        return null;
     }
 }

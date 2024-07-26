@@ -1,13 +1,15 @@
 package org.pronet.shoppie.services;
 
+import jakarta.mail.MessagingException;
 import org.pronet.shoppie.entities.Order;
 import org.pronet.shoppie.entities.OrderRequest;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface OrderService {
-    void saveOrder(Long userId, OrderRequest orderRequest);
+    void saveOrder(Long userId, OrderRequest orderRequest) throws MessagingException, UnsupportedEncodingException;
     List<Order> getList();
     List<Order> getListByUser(Long id);
-    Boolean updateOrderStatus(Long id, Integer status);
+    Order updateOrderStatus(Long id, Integer status) throws MessagingException, UnsupportedEncodingException;
 }
