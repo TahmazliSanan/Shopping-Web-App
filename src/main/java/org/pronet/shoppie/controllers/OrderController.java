@@ -1,5 +1,6 @@
 package org.pronet.shoppie.controllers;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import org.pronet.shoppie.entities.Cart;
 import org.pronet.shoppie.entities.Order;
@@ -11,8 +12,10 @@ import org.pronet.shoppie.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.List;
 
@@ -57,7 +60,7 @@ public class OrderController extends BaseController {
     @PostMapping("/save")
     public String saveOrder(
             @ModelAttribute OrderRequest orderRequest,
-            Principal principal) {
+            Principal principal) throws MessagingException, UnsupportedEncodingException {
         UserEntity user = getLoggedInUserDetails(principal);
         orderService.saveOrder(user.getId(), orderRequest);
         return "redirect:/order/success";
@@ -80,9 +83,9 @@ public class OrderController extends BaseController {
     public String updateOrderStatusPage(
             @RequestParam Long id,
             @RequestParam Integer status,
-            HttpSession session) {
-        Boolean updatedOrder = orderService.updateOrderStatus(id, status);
-        if (updatedOrder) {
+            HttpSession session) throws MessagingException, UnsupportedEncodingException {
+        Order updatedOrder = orderService.updateOrderStatus(id, status);
+        if (!ObjectUtils.isEmpty(updatedOrder)) {
             session.setAttribute("successMessage", "Status is updated successfully!");
         } else {
             session.setAttribute("errorMessage", "Status is not updated!");

@@ -1,5 +1,6 @@
 package org.pronet.shoppie.controllers;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import org.pronet.shoppie.entities.Category;
 import org.pronet.shoppie.entities.Order;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.List;
 
@@ -212,9 +214,9 @@ public class AdminController extends BaseController {
     public String updateOrderStatusPage(
             @RequestParam Long id,
             @RequestParam Integer status,
-            HttpSession session) {
-        Boolean updatedOrder = orderService.updateOrderStatus(id, status);
-        if (updatedOrder) {
+            HttpSession session) throws MessagingException, UnsupportedEncodingException {
+        Order updatedOrder = orderService.updateOrderStatus(id, status);
+        if (!ObjectUtils.isEmpty(updatedOrder)) {
             session.setAttribute("successMessage", "Status is updated successfully!");
         } else {
             session.setAttribute("errorMessage", "Status is not updated!");
