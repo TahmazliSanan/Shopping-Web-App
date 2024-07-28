@@ -77,6 +77,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity updateUserProfile(UserEntity userEntity, MultipartFile file) throws IOException {
+        Optional<UserEntity> dbUser = userRepository.findById(userEntity.getId());
+        if (dbUser.isPresent()) {
+            UserEntity newUser = dbUser.get();
+            if (!file.isEmpty()) {
+                newUser.setProfileImageName(file.getOriginalFilename());
+            }
+            if (!ObjectUtils.isEmpty(dbUser)) {
+                newUser.setFullName(userEntity.getFullName());
+                newUser.setMobileNumber(userEntity.getMobileNumber());
+                newUser.setAddress(userEntity.getAddress());
+                newUser.setCity(userEntity.getCity());
+                newUser.setState(userEntity.getState());
+                newUser.setPinCode(userEntity.getPinCode());
+                userRepository.save(newUser);
+            }
+            if (!file.isEmpty()) {
+                File savedFile = new ClassPathResource("static/").getFile();
+                Path path = Paths.get(savedFile.getAbsolutePath() +
+                        File.separator + "profile-images" +
+                        File.separator +
+                        file.getOriginalFilename());
+                Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            }
+            return newUser;
+        }
+        return null;
+    }
+
+    @Override
     public Boolean editAccountStatus(Long id, Boolean status) {
         Optional<UserEntity> foundedUser = userRepository.findById(id);
         if (foundedUser.isPresent()) {

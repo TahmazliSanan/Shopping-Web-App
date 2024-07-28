@@ -12,6 +12,7 @@ public interface UserService {
     UserEntity getUserByToken(String token);
     List<UserEntity> getList(String role);
     void updateUser(UserEntity userEntity);
+    UserEntity updateUserProfile(UserEntity userEntity,MultipartFile file) throws IOException;
     Boolean editAccountStatus(Long id, Boolean status);
     Boolean existsUserByEmail(String email);
     void increaseFailedAttempt(UserEntity userEntity);
