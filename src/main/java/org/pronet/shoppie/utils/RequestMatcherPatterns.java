@@ -10,7 +10,7 @@ public class RequestMatcherPatterns {
     };
     public static final String[] USER_AUTH_MATCHERS = {
             "/product/details/{id}", "/cart/**", "/order/**",
-            "/my-profile", "/update-profile"
+            "/my-profile", "/update-profile", "/change-password"
     };
     public static final String[] ADMIN_AUTH_MATCHERS = {
             "/admin/**"
