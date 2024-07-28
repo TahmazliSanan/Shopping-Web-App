@@ -31,6 +31,15 @@ public class AccountController extends BaseController {
     @Autowired
     private AccountUtils accountUtils;
 
+    private UserEntity getLoggedInUserDetails(Principal principal) {
+        if (principal != null) {
+            String email = principal.getName();
+            return userService.getUserByEmail(email);
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public void getUserDetails(Principal principal, Model model) {
         super.getUserDetails(principal, model);
@@ -145,6 +154,34 @@ public class AccountController extends BaseController {
             session.setAttribute("errorMessage", "Profile is not updated!");
         } else {
             session.setAttribute("successMessage", "Profile is updated successfully!");
+        }
+        return "redirect:/my-profile";
+    }
+
+    @PostMapping("/change-password")
+    public String changePasswordPage(
+            @RequestParam String newPassword,
+            @RequestParam String currentPassword,
+            @RequestParam String confirmPassword,
+            Principal principal,
+            HttpSession session) {
+        UserEntity user = getLoggedInUserDetails(principal);
+        boolean isMatch = passwordEncoder.matches(currentPassword, user.getPassword());
+        if (isMatch) {
+            if (newPassword.equals(confirmPassword)) {
+                String encodePassword = passwordEncoder.encode(newPassword);
+                user.setPassword(encodePassword);
+                UserEntity updatedUser = userService.updateUser(user);
+                if (ObjectUtils.isEmpty(updatedUser)) {
+                    session.setAttribute("errorMessage", "Password is not updated!");
+                } else {
+                    session.setAttribute("successMessage", "Password is updated successfully!");
+                }
+            } else {
+                session.setAttribute("errorMessage", "Passwords don't match!");
+            }
+        } else {
+            session.setAttribute("errorMessage", "Current password is not correct!");
         }
         return "redirect:/my-profile";
     }
