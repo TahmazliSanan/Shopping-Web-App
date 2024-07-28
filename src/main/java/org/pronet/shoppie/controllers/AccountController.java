@@ -129,4 +129,23 @@ public class AccountController extends BaseController {
         }
         return "account/message";
     }
+
+    @GetMapping("/my-profile")
+    public String myProfilePage() {
+        return "account/my-profile";
+    }
+
+    @PostMapping("/update-profile")
+    public String updateProfilePage(
+            @ModelAttribute UserEntity userEntity,
+            @RequestParam MultipartFile file,
+            HttpSession session) throws IOException {
+        UserEntity updatedUserProfile = userService.updateUserProfile(userEntity, file);
+        if (ObjectUtils.isEmpty(updatedUserProfile)) {
+            session.setAttribute("errorMessage", "Profile is not updated!");
+        } else {
+            session.setAttribute("successMessage", "Profile is updated successfully!");
+        }
+        return "redirect:/my-profile";
+    }
 }
