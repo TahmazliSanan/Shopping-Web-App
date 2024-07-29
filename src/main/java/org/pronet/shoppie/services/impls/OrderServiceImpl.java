@@ -49,6 +49,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order getByOrderId(String orderId) {
+        return orderRepository.findByOrderId(orderId);
+    }
+
+    @Override
     public List<Order> getList() {
         return orderRepository.findAll();
     }
