@@ -207,6 +207,7 @@ public class AdminController extends BaseController {
     public String orderListPage(Model model) {
         List<Order> orderList = orderService.getList();
         model.addAttribute("orderList", orderList);
+        model.addAttribute("search", false);
         return "admin/order/order-list";
     }
 
@@ -222,5 +223,27 @@ public class AdminController extends BaseController {
             session.setAttribute("errorMessage", "Status is not updated!");
         }
         return "redirect:/admin/order-list";
+    }
+
+    @GetMapping("/search-order")
+    public String searchOrderPage(
+            @RequestParam String orderId,
+            Model model,
+            HttpSession session) {
+        if (orderId != null && !orderId.isEmpty()) {
+            Order foundedOrder = orderService.getByOrderId(orderId.trim());
+            if (ObjectUtils.isEmpty(foundedOrder)) {
+                session.setAttribute("errorMessage", "Order ID is not available!");
+                model.addAttribute("orderDetails", null);
+            } else {
+                model.addAttribute("orderDetails", foundedOrder);
+            }
+            model.addAttribute("search", true);
+        } else {
+            List<Order> orderList = orderService.getList();
+            model.addAttribute("orderList", orderList);
+            model.addAttribute("search", false);
+        }
+        return "admin/order/order-list";
     }
 }
