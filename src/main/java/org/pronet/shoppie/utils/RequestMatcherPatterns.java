@@ -4,13 +4,13 @@ public class RequestMatcherPatterns {
     public static final String[] NON_AUTH_MATCHERS = {
             "/css/**", "/carousel/**", "/category-images/**",
             "/product-images/**", "/profile-images/**",
-            "/", "/category/list", "/product/list",
+            "/", "/category/list", "/product/list", "/product/search",
             "/sign-up-view", "/sign-up", "/sign-in",
-            "/forgot-password", "/forgot-password-view", "/reset-password"
+            "/forgot-password", "/forgot-password-view", "/reset-password",
+            "/my-profile", "/update-profile", "/change-password"
     };
     public static final String[] USER_AUTH_MATCHERS = {
-            "/product/details/{id}", "/cart/**", "/order/**",
-            "/my-profile", "/update-profile", "/change-password"
+            "/product/details/{id}", "/cart/**", "/order/**"
     };
     public static final String[] ADMIN_AUTH_MATCHERS = {
             "/admin/**"
