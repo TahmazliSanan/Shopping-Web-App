@@ -12,6 +12,7 @@ public interface ProductService {
     List<Product> getList();
     List<Product> getActiveProductList(String category);
     List<Product> getActiveTopProductList();
+    List<Product> searchProduct(String character);
     Product edit(Product product, MultipartFile file) throws IOException;
     Boolean remove(Long id);
     Boolean existsProductByName(String name);

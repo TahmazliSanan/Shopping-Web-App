@@ -75,6 +75,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> searchProduct(String character) {
+        return productRepository.findByNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(character, character);
+    }
+
+    @Override
     public Product edit(Product product, MultipartFile file) throws IOException {
         Product dbProduct = getById(product.getId());
         String imageName = file.isEmpty() ? dbProduct.getImageName() : file.getOriginalFilename();
