@@ -11,10 +11,11 @@
         <div class="container-fluid bg-primary p-5 mt-5 ">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <form>
+                    <form action="/product/search" method="get">
                         <div class="input-group">
-                            <label for="ch"></label>
-                            <input id="ch" type="text" class="form-control" name="ch">
+                            <label>
+                                <input id="character" type="text" class="form-control" name="character">
+                            </label>
                             <button class="btn btn-light text-dark ms-3 col-md-2">
                                 Search
                             </button>
