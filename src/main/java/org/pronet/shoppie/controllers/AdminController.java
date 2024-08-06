@@ -138,8 +138,15 @@ public class AdminController extends BaseController {
     }
 
     @GetMapping("/product-list")
-    public String productListPage(Model model) {
-        List<Product> productList = productService.getList();
+    public String productListPage(
+            @RequestParam(defaultValue = "") String character,
+            Model model) {
+        List<Product> productList;
+        if (character != null && !character.isEmpty()) {
+            productList = productService.searchProduct(character);
+        } else {
+            productList = productService.getList();
+        }
         model.addAttribute("productList", productList);
         return "admin/product/product-list";
     }
