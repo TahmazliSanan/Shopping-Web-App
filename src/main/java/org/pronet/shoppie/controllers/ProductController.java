@@ -50,4 +50,15 @@ public class ProductController extends BaseController {
         model.addAttribute("foundedProduct", foundedProduct);
         return "product/product-details";
     }
+
+    @GetMapping("/search")
+    public String searchProductPage(
+            @RequestParam String character,
+            Model model) {
+        List<Product> searchedProductList = productService.searchProduct(character);
+        List<Category> categoryList = categoryService.getActiveCategoryList();
+        model.addAttribute("productList", searchedProductList);
+        model.addAttribute("categoryList", categoryList);
+        return "product/product-list";
+    }
 }
