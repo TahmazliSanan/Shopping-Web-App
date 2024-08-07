@@ -5,6 +5,9 @@ import org.pronet.shoppie.repositories.ProductRepository;
 import org.pronet.shoppie.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,14 +62,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getActiveProductList(String category) {
-        List<Product> productList = null;
+    public Page<Product> getActiveProductList(Integer pageNumber, Integer pageSize, String category) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Product> pageProduct;
         if (ObjectUtils.isEmpty(category)) {
-            productList = productRepository.findByIsActiveTrue();
+            pageProduct = productRepository.findByIsActiveTrue(pageable);
         } else {
-            productList = productRepository.findByCategory(category);
+            pageProduct = productRepository.findByCategory(pageable, category);
         }
-        return productList;
+        return pageProduct;
     }
 
     @Override
