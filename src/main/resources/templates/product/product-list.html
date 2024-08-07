@@ -48,42 +48,68 @@
                         <div class="card-body">
                             <p class="fs-3 text-center">Product List</p>
                             <div class="row">
-                                <th:block th:if="${productList.size > 0}">
+                                <th:block th:if="${productListSize > 0}">
                                     <div class="col-md-3" th:each="product : ${productList}">
                                         <div class="card">
                                             <div class="card-body">
                                                 <img alt="..." width="100%" height="150px"
                                                      th:src="@{'/product-images/' + ${product.imageName}}">
-                                                <p class="fs-5 text-center" th:text="${product.name}"></p>
-                                                <div class="row text-center">
-                                                    <p class="fs-6 fw-bold">
-                                                    <span>
-                                                        [[${product.discountPrice}]] $
-                                                    </span>
-                                                        <th:block th:if="${product.discount > 0}">
-                                                            <br>
-                                                            <span class="text-decoration-line-through text-secondary">
-                                                            [[${product.price}]] $
-                                                        </span>
-                                                            &nbsp;
-                                                            <span class="fs-6 text-success">
-                                                            [[${product.discount}]] % off
-                                                        </span>
-                                                        </th:block>
-                                                    </p>
-                                                    <a th:href="@{'/product/details/' + ${product.id}}"
-                                                       class="btn btn-info col-md-6 offset-md-3">
-                                                        View Details
-                                                    </a>
+                                                    <p class="fs-5 text-center" th:text="${product.name}"></p>
+                                                    <div class="row text-center">
+                                                        <p class="fs-6 fw-bold">
+                                                            <span>
+                                                                [[${product.discountPrice}]] $
+                                                            </span>
+                                                            <th:block th:if="${product.discount > 0}">
+                                                                <br>
+                                                                <span class="text-decoration-line-through text-secondary">
+                                                                    [[${product.price}]] $
+                                                                </span>
+                                                                &nbsp;
+                                                                <span class="fs-6 text-success">
+                                                                    [[${product.discount}]] % off
+                                                                </span>
+                                                            </th:block>
+                                                        </p>
+                                                        <a th:href="@{'/product/details/' + ${product.id}}"
+                                                            class="btn btn-info col-md-6 offset-md-3">
+                                                            View Details
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </th:block>
-                                <th:block th:unless="${productList.size > 0}">
-                                    <p class="fs-4 text-center mt-4 text-danger">Products are not available!</p>
-                                </th:block>
+                                    </th:block>
+                                    <th:block th:unless="${productListSize > 0}">
+                                        <p class="fs-4 text-center mt-4 text-danger">Products are not available!</p>
+                                    </th:block>
+                                </div>
                             </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-4">Total Products: [[${totalElements}]]</div>
+                        <div class="col-md-6">
+                            <th:block th:if="${productListSize > 0}">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item" th:classappend="${isFirst} ? 'disabled' : ''">
+                                            <a class="page-link"
+                                               th:href="@{'/product/list?pageNumber=' + ${pageNumber - 1}}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"
+                                            th:classappend="${pageNumber + 1 == i} ? 'active' : ''">
+                                            <a class="page-link" th:href="@{'/product/list?pageNumber=' + ${i - 1}}">[[${i}]]</a>
+                                        </li>
+                                        <li class="page-item" th:classappend="${isLast} ? 'disabled' : ''">
+                                            <a class="page-link" th:href="@{'/product/list?pageNumber=' + ${pageNumber + 1}}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </th:block>
                         </div>
                     </div>
                 </div>
