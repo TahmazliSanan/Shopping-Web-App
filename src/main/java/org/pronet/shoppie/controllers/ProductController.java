@@ -5,6 +5,7 @@ import org.pronet.shoppie.entities.Product;
 import org.pronet.shoppie.services.CategoryService;
 import org.pronet.shoppie.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +33,23 @@ public class ProductController extends BaseController {
 
     @GetMapping("/list")
     public String productListPage(
-            Model model,
-            @RequestParam(value = "category", defaultValue = "") String category) {
+            @RequestParam(value = "category", defaultValue = "") String category,
+            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "3") Integer pageSize,
+            Model model) {
         List<Category> categoryList = categoryService.getActiveCategoryList();
-        List<Product> productList = productService.getActiveProductList(category);
-        model.addAttribute("categoryList", categoryList);
-        model.addAttribute("productList", productList);
         model.addAttribute("parameterValue", category);
+        model.addAttribute("categoryList", categoryList);
+        Page<Product> page = productService.getActiveProductList(pageNumber, pageSize, category);
+        List<Product> productList = page.getContent();
+        model.addAttribute("productList", productList);
+        model.addAttribute("productListSize", productList.size());
+        model.addAttribute("pageNumber", page.getNumber());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("isFirst", page.isFirst());
+        model.addAttribute("isLast", page.isLast());
         return "product/product-list";
     }
 
