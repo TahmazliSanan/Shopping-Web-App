@@ -151,15 +151,25 @@ public class AdminController extends BaseController {
 
     @GetMapping("/product-list")
     public String productListPage(
+            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
             @RequestParam(defaultValue = "") String character,
             Model model) {
-        List<Product> productList;
+        Page<Product> page;
         if (character != null && !character.isEmpty()) {
-            productList = productService.searchProduct(character);
+            page = productService.searchProduct(pageNumber, pageSize, character);
         } else {
-            productList = productService.getList();
+            page = productService.getList(pageNumber, pageSize);
         }
+        List<Product> productList = page.getContent();
         model.addAttribute("productList", productList);
+        model.addAttribute("productListSize", productList.size());
+        model.addAttribute("pageNumber", page.getNumber());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("isFirstPage", page.isFirst());
+        model.addAttribute("isLastPage", page.isLast());
         return "admin/product/product-list";
     }
 
