@@ -233,9 +233,20 @@ public class AdminController extends BaseController {
     }
 
     @GetMapping("/order-list")
-    public String orderListPage(Model model) {
-        List<Order> orderList = orderService.getList();
+    public String orderListPage(
+            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
+            Model model) {
+        Page<Order> page = orderService.getList(pageNumber, pageSize);
+        List<Order> orderList = page.getContent();
         model.addAttribute("orderList", orderList);
+        model.addAttribute("orderListSize", orderList.size());
+        model.addAttribute("pageNumber", page.getNumber());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("isFirstPage", page.isFirst());
+        model.addAttribute("isLastPage", page.isLast());
         model.addAttribute("search", false);
         return "admin/order/order-list";
     }
@@ -257,6 +268,8 @@ public class AdminController extends BaseController {
     @GetMapping("/search-order")
     public String searchOrderPage(
             @RequestParam String orderId,
+            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
             Model model,
             HttpSession session) {
         if (orderId != null && !orderId.isEmpty()) {
@@ -269,8 +282,14 @@ public class AdminController extends BaseController {
             }
             model.addAttribute("search", true);
         } else {
-            List<Order> orderList = orderService.getList();
-            model.addAttribute("orderList", orderList);
+            Page<Order> page = orderService.getList(pageNumber, pageSize);
+            model.addAttribute("orderList", page);
+            model.addAttribute("pageNumber", page.getNumber());
+            model.addAttribute("pageSize", pageSize);
+            model.addAttribute("totalElements", page.getTotalElements());
+            model.addAttribute("totalPages", page.getTotalPages());
+            model.addAttribute("isFirstPage", page.isFirst());
+            model.addAttribute("isLastPage", page.isLast());
             model.addAttribute("search", false);
         }
         return "admin/order/order-list";
