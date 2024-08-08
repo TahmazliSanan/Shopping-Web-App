@@ -63,8 +63,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getListByUser(Long id) {
-        return orderRepository.findByUserId(id);
+    public Page<Order> getListByUser(Long id, Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return orderRepository.findByUserId(id, pageable);
     }
 
     @Override
