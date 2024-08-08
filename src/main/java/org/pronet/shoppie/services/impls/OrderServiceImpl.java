@@ -11,6 +11,9 @@ import org.pronet.shoppie.services.OrderService;
 import org.pronet.shoppie.utils.AccountUtils;
 import org.pronet.shoppie.utils.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
@@ -54,8 +57,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getList() {
-        return orderRepository.findAll();
+    public Page<Order> getList(Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return orderRepository.findAll(pageable);
     }
 
     @Override
