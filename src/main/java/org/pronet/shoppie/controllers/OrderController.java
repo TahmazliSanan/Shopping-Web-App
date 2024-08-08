@@ -10,6 +10,7 @@ import org.pronet.shoppie.services.CartService;
 import org.pronet.shoppie.services.OrderService;
 import org.pronet.shoppie.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -72,10 +73,20 @@ public class OrderController extends BaseController {
     }
 
     @GetMapping("/my-orders")
-    public String myOrdersPage(Model model, Principal principal) {
+    public String myOrdersPage(
+            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
+            Model model,
+            Principal principal) {
         UserEntity user = getLoggedInUserDetails(principal);
-        List<Order> orderList = orderService.getListByUser(user.getId());
-        model.addAttribute("orderList", orderList);
+        Page<Order> page = orderService.getListByUser(user.getId(), pageNumber, pageSize);
+        model.addAttribute("orderList", page);
+        model.addAttribute("pageNumber", page.getNumber());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("isFirstPage", page.isFirst());
+        model.addAttribute("isLastPage", page.isLast());
         return "/order/my-orders";
     }
 
