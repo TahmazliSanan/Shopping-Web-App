@@ -57,8 +57,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getList() {
-        return productRepository.findAll();
+    public Page<Product> getList(Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return productRepository.findAll(pageable);
     }
 
     @Override
@@ -74,13 +75,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<Product> searchActiveProduct(Integer pageNumber, Integer pageSize, String category, String character) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return productRepository.findByIsActiveTrueAndNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(character, character, pageable);
+    }
+
+    @Override
     public List<Product> getActiveTopProductList() {
         return productRepository.takeActiveTopProducts();
     }
 
     @Override
-    public List<Product> searchProduct(String character) {
-        return productRepository.findByNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(character, character);
+    public Page<Product> searchProduct(Integer pageNumber, Integer pageSize, String character) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return productRepository.findByNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(character, character, pageable);
     }
 
     @Override

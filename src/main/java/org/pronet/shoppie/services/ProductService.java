@@ -10,10 +10,11 @@ import java.util.List;
 public interface ProductService {
     Product add(Product product, MultipartFile file) throws IOException;
     Product getById(Long id);
-    List<Product> getList();
-    Page<Product> getActiveProductList(Integer pageNumber, Integer pageSize, String category);
+    Page<Product> getList(Integer pageNumber, Integer pageSize);
     List<Product> getActiveTopProductList();
-    List<Product> searchProduct(String character);
+    Page<Product> getActiveProductList(Integer pageNumber, Integer pageSize, String category);
+    Page<Product> searchActiveProduct(Integer pageNumber, Integer pageSize, String category, String character);
+    Page<Product> searchProduct(Integer pageNumber, Integer pageSize, String character);
     Product edit(Product product, MultipartFile file) throws IOException;
     Boolean remove(Long id);
     Boolean existsProductByName(String name);
