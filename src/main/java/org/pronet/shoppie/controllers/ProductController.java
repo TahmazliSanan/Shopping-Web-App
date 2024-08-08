@@ -35,21 +35,21 @@ public class ProductController extends BaseController {
     public String productListPage(
             @RequestParam(value = "category", defaultValue = "") String category,
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "8") Integer pageSize,
+            @RequestParam(name = "pageSize", defaultValue = "3") Integer pageSize,
             Model model) {
         List<Category> categoryList = categoryService.getActiveCategoryList();
         model.addAttribute("parameterValue", category);
         model.addAttribute("categoryList", categoryList);
-        Page<Product> productPage = productService.getActiveProductList(pageNumber, pageSize, category);
-        List<Product> productList = productPage.getContent();
+        Page<Product> page = productService.getActiveProductList(pageNumber, pageSize, category);
+        List<Product> productList = page.getContent();
         model.addAttribute("productList", productList);
         model.addAttribute("productListSize", productList.size());
-        model.addAttribute("productPageNumber", productPage.getNumber());
-        model.addAttribute("productPageSize", pageSize);
-        model.addAttribute("productPageTotalElements", productPage.getTotalElements());
-        model.addAttribute("totalProductPages", productPage.getTotalPages());
-        model.addAttribute("isFirstProductPage", productPage.isFirst());
-        model.addAttribute("isLastProductPage", productPage.isLast());
+        model.addAttribute("pageNumber", page.getNumber());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("isFirstPage", page.isFirst());
+        model.addAttribute("isLastPage", page.isLast());
         return "product/product-list";
     }
 
