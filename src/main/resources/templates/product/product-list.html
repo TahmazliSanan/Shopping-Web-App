@@ -87,23 +87,23 @@
                             </div>
                         </div>
                     <div class="row">
-                        <div class="col-md-4">Total Products: [[${totalElements}]]</div>
+                        <div class="col-md-4">Total Products: [[${productPageTotalElements}]]</div>
                         <div class="col-md-6">
                             <th:block th:if="${productListSize > 0}">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
-                                        <li class="page-item" th:classappend="${isFirst} ? 'disabled' : ''">
+                                        <li class="page-item" th:classappend="${isFirstProductPage} ? 'disabled' : ''">
                                             <a class="page-link"
-                                               th:href="@{'/product/list?pageNumber=' + ${pageNumber - 1}}" aria-label="Previous">
+                                               th:href="@{'/product/list?pageNumber=' + ${productPageNumber - 1}}" aria-label="Previous">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
                                         </li>
-                                        <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"
-                                            th:classappend="${pageNumber + 1 == i} ? 'active' : ''">
+                                        <li th:each="i : ${#numbers.sequence(1, totalProductPages)}" class="page-item"
+                                            th:classappend="${productPageNumber + 1 == i} ? 'active' : ''">
                                             <a class="page-link" th:href="@{'/product/list?pageNumber=' + ${i - 1}}">[[${i}]]</a>
                                         </li>
-                                        <li class="page-item" th:classappend="${isLast} ? 'disabled' : ''">
-                                            <a class="page-link" th:href="@{'/product/list?pageNumber=' + ${pageNumber + 1}}" aria-label="Next">
+                                        <li class="page-item" th:classappend="${isLastProductPage} ? 'disabled' : ''">
+                                            <a class="page-link" th:href="@{'/product/list?pageNumber=' + ${productPageNumber + 1}}" aria-label="Next">
                                                 <span aria-hidden="true">&raquo;</span>
                                             </a>
                                         </li>
