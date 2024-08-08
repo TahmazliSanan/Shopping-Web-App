@@ -5,6 +5,9 @@ import org.pronet.shoppie.repositories.CategoryRepository;
 import org.pronet.shoppie.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,6 +57,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getList() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public Page<Category> getList(Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return categoryRepository.findAll(pageable);
     }
 
     @Override
