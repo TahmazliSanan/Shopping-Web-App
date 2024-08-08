@@ -36,11 +36,17 @@ public class ProductController extends BaseController {
             @RequestParam(value = "category", defaultValue = "") String category,
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
             @RequestParam(name = "pageSize", defaultValue = "3") Integer pageSize,
+            @RequestParam(name = "character", defaultValue = "") String character,
             Model model) {
         List<Category> categoryList = categoryService.getActiveCategoryList();
         model.addAttribute("parameterValue", category);
         model.addAttribute("categoryList", categoryList);
-        Page<Product> page = productService.getActiveProductList(pageNumber, pageSize, category);
+        Page<Product> page;
+        if (character != null && !character.isEmpty()) {
+            page = productService.searchActiveProduct(pageNumber, pageSize, category, character);
+        } else {
+            page = productService.getActiveProductList(pageNumber, pageSize, category);
+        }
         List<Product> productList = page.getContent();
         model.addAttribute("productList", productList);
         model.addAttribute("productListSize", productList.size());
@@ -60,16 +66,5 @@ public class ProductController extends BaseController {
         Product foundedProduct = productService.getById(id);
         model.addAttribute("foundedProduct", foundedProduct);
         return "product/product-details";
-    }
-
-    @GetMapping("/search")
-    public String searchProductPage(
-            @RequestParam String character,
-            Model model) {
-        List<Product> searchedProductList = productService.searchProduct(character);
-        List<Category> categoryList = categoryService.getActiveCategoryList();
-        model.addAttribute("productList", searchedProductList);
-        model.addAttribute("categoryList", categoryList);
-        return "product/product-list";
     }
 }
