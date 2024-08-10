@@ -41,8 +41,17 @@
                 <div class="col-md-4 mt-4">
                     <a th:href="@{'/admin/order-list'}" class="text-decoration-none">
                         <div class="card card-sh">
-                            <div class="card-body text-center text-success">
+                            <div class="card-body text-center text-primary">
                                 <h4>Orders</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-4">
+                    <a th:href="@{'/admin/admin-list'}" class="text-decoration-none">
+                        <div class="card card-sh">
+                            <div class="card-body text-center text-danger">
+                                <h4>Admins</h4>
                             </div>
                         </div>
                     </a>
@@ -57,7 +66,7 @@
                     </a>
                 </div>
                 <div class="col-md-4 mt-4">
-                    <a href="#" class="text-decoration-none">
+                    <a th:href="@{'/admin/add-admin'}" class="text-decoration-none">
                         <div class="card card-sh">
                             <div class="card-body text-center text-primary">
                                 <h4>Add Admin</h4>
