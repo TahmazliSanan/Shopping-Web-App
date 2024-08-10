@@ -35,7 +35,7 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Image</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -45,7 +45,10 @@
                                     <img th:src="@{'/category-images/' + ${category.imageName}}"
                                          width="50px" height="50px" alt="...">
                                 </td>
-                                <td th:text="${category.isActive}"></td>
+                                <td>
+                                    <a th:href="@{'/category/list/' + ${category.id} + '/view-products'}"
+                                       class="btn btn-sm btn-info">View Products</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
