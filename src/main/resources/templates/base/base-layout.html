@@ -25,13 +25,43 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{'/'}">Home</a>
+                    <th:block th:if="${user != null}">
+                        <th:block th:if="${user.role == 'Admin'}">
+                            <a class="nav-link active" th:href="@{'/admin/dashboard'}">Home</a>
+                        </th:block>
+                        <th:block th:if="${user.role == 'User'}">
+                            <a class="nav-link active" th:href="@{'/'}">Home</a>
+                        </th:block>
+                    </th:block>
+                    <th:block th:unless="${user != null}">
+                        <a class="nav-link active" th:href="@{'/'}">Home</a>
+                    </th:block>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{'/category/list'}">Categories</a>
+                    <th:block th:if="${user != null}">
+                        <th:block th:if="${user.role == 'Admin'}">
+                            <a class="nav-link active" th:href="@{'/admin/category-list'}">Categories</a>
+                        </th:block>
+                        <th:block th:if="${user.role == 'User'}">
+                            <a class="nav-link active" th:href="@{'/category/list'}">Categories</a>
+                        </th:block>
+                    </th:block>
+                    <th:block th:unless="${user != null}">
+                        <a class="nav-link active" th:href="@{'/category/list'}">Categories</a>
+                    </th:block>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{'/product/list'}">Products</a>
+                    <th:block th:if="${user != null}">
+                        <th:block th:if="${user.role == 'Admin'}">
+                            <a class="nav-link active" th:href="@{'/admin/product-list'}">Products</a>
+                        </th:block>
+                        <th:block th:if="${user.role == 'User'}">
+                            <a class="nav-link active" th:href="@{'/product/list'}">Products</a>
+                        </th:block>
+                    </th:block>
+                    <th:block th:unless="${user != null}">
+                        <a class="nav-link active" th:href="@{'/product/list'}">Products</a>
+                    </th:block>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
