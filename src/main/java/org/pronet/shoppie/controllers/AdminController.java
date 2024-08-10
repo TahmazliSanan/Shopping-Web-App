@@ -327,7 +327,7 @@ public class AdminController extends BaseController {
         userEntity.setProfileImageName(imageName);
         Boolean isUserExist = userService.existsUserByEmail(userEntity.getEmail());
         if (isUserExist) {
-            session.setAttribute("errorMessage", "User is already exist!");
+            session.setAttribute("errorMessage", "Admin is already exist!");
             return "redirect:/admin/add-admin";
         } else {
             if (!(userEntity.getPassword().equals(userEntity.getConfirmPassword()))) {
