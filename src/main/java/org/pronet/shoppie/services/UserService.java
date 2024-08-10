@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UserService {
     UserEntity signUp(UserEntity userEntity, MultipartFile file) throws IOException;
+    UserEntity addAdmin(UserEntity userEntity, MultipartFile file) throws IOException;
     UserEntity getUserByEmail(String email);
     UserEntity getUserByToken(String token);
     List<UserEntity> getList(String role);

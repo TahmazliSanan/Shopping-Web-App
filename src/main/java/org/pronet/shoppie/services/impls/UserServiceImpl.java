@@ -57,6 +57,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity addAdmin(UserEntity userEntity, MultipartFile file) throws IOException {
+        String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
+        userEntity.setProfileImageName(imageName);
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        userEntity.setConfirmPassword(passwordEncoder.encode(userEntity.getConfirmPassword()));
+        userEntity.setRole("Admin");
+        userEntity.setIsEnabled(true);
+        userEntity.setAccountNonLocked(true);
+        userEntity.setFailedAttempt(0);
+        UserEntity savedUser = userRepository.save(userEntity);
+        if (!ObjectUtils.isEmpty(savedUser)) {
+            if (!Objects.requireNonNull(file).isEmpty()) {
+                File savedFile = new ClassPathResource("static/").getFile();
+                Path path = Paths.get(
+                        savedFile.getAbsolutePath() +
+                                File.separator +
+                                "profile-images" +
+                                File.separator +
+                                file.getOriginalFilename());
+                Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            }
+            return userEntity;
+        }
+        return null;
+    }
+
+    @Override
     public UserEntity getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
