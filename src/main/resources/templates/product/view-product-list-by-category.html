@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/base/base-layout::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<section>
+    <div class="container-fluid mt-4 p-3">
+        <div class="row">
+            <p class="text-center fs-3 mt-2">All Products</p>
+            <th:block th:if="${session.successMessage}">
+                <p class="text-success fw-bold">[[${session.successMessage}]]</p>
+                <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
+            </th:block>
+            <th:block th:if="${session.errorMessage}">
+                <p class="text-danger fw-bold">[[${session.errorMessage}]]</p>
+                <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
+            </th:block>
+            <th:block th:if="${productListSize > 0}">
+                <div class="p-3">
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Discount</th>
+                            <th scope="col">Discount Price</th>
+                            <th scope="col">Stock</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product : ${productList}">
+                            <td>
+                                <img th:src="@{'/product-images/' + ${product.imageName}}"
+                                     width="70px" height="70px" alt="">
+                            </td>
+                            <td>[[${product.name}]]</td>
+                            <td>[[${product.category}]]</td>
+                            <td>[[${product.price}]]</td>
+                            <td>[[${product.discount}]]</td>
+                            <td>[[${product.discountPrice}]]</td>
+                            <td>[[${product.stock}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </th:block>
+            <th:block th:unless="${productListSize > 0}">
+                <p class="fs-4 text-center mt-4 text-danger">Products are not available!</p>
+            </th:block>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">Total Products: [[${totalElements}]]</div>
+                </div>
+                <th:block th:if="${productListSize > 0}">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item" th:classappend="${isFirstPage} ? 'disabled' : ''">
+                                <a class="page-link"
+                                   th:href="@{'/admin/product-list?pageNumber=' + ${pageNumber - 1}}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"
+                                th:classappend="${pageNumber + 1 == i} ? 'active' : ''">
+                                <a class="page-link" th:href="@{'/admin/product-list?pageNumber=' + ${i - 1}}">[[${i}]]</a>
+                            </li>
+                            <li class="page-item" th:classappend="${isLastPage} ? 'disabled' : ''">
+                                <a class="page-link" th:href="@{'/admin/product-list?pageNumber=' + ${pageNumber + 1}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
