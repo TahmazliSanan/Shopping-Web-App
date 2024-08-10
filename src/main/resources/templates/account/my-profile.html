@@ -8,7 +8,7 @@
 </head>
 <body>
 <section>
-    <div class="container-fluid mt-5 p-5 bg-light">
+    <div class="container-fluid mt-5 p-5">
         <th:block th:if="${session.successMessage}">
             <div class="alert alert-success alert-dismissible fade show"
                  role="alert">
@@ -26,7 +26,7 @@
             <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
         </th:block>
         <div class="row">
-            <div class="col-md-10 offset-md-1 ">
+            <div class="col-md-10 offset-md-1">
                 <p class="fs-3 text-center">My Profile</p>
                 <hr>
                 <div class="text-center">
