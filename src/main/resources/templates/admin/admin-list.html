@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/base/base-layout::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Admins</title>
+</head>
+<body>
+<section>
+    <div class="container mt-5 p-5">
+        <th:block th:if="${session.successMessage}">
+            <div class="alert alert-success alert-dismissible fade show"
+                 role="alert">
+                [[${session.successMessage}]]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
+        </th:block>
+        <th:block th:if="${session.errorMessage}">
+            <div class="alert alert-danger alert-dismissible fade show"
+                 role="alert">
+                [[${session.errorMessage}]]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
+        </th:block>
+        <div class="card card-sh">
+            <div class="card-header text-center">
+                <p class="fs-4">Admin List</p>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Profile Image</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile Number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="admin : ${adminList}">
+                        <td>
+                            <img th:src="@{'/profile-images/' + ${admin.profileImageName}}"
+                                 width="50px" height="50px" alt="...">
+                        </td>
+                        <td th:text="${admin.fullName}"></td>
+                        <td th:text="${admin.email}"></td>
+                        <td th:text="${admin.mobileNumber}"></td>
+                        <td>
+                            [[${admin.address}]] / [[${admin.city}]] / [[${admin.state}]] / [[${admin.pinCode}]]
+                        </td>
+                        <td th:text="${admin.isEnabled}"></td>
+                        <td>
+                            <a th:href="@{'/admin/edit-admin-account-status?status=true&id=' + ${admin.id}}"
+                               class="btn btn-sm btn-success">Active</a>
+                            <a th:href="@{'/admin/edit-admin-account-status?status=false&id=' + ${admin.id}}"
+                               class="btn btn-sm btn-danger">Inactive</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
