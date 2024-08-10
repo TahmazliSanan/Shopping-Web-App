@@ -55,8 +55,6 @@ public class AccountController extends BaseController {
             @ModelAttribute UserEntity userEntity,
             @RequestParam("file") MultipartFile file,
             HttpSession session) throws IOException {
-        String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
-        userEntity.setProfileImageName(imageName);
         Boolean isUserExist = userService.existsUserByEmail(userEntity.getEmail());
         if (isUserExist) {
             session.setAttribute("errorMessage", "User is already exist!");
