@@ -79,12 +79,17 @@
                                             <img th:src="@{'/category-images/' + ${category.imageName}}"
                                                  width="50px" height="50px" alt="...">
                                         </td>
-                                        <td th:text="${category.isActive}"></td>
+                                        <th:block th:if="${category.isActive}">
+                                            <td>Active</td>
+                                        </th:block>
+                                        <th:block th:unless="${category.isActive}">
+                                            <td>Inactive</td>
+                                        </th:block>
                                         <td>
                                             <a th:href="@{'/admin/edit-category/' + ${category.id}}"
-                                               class="btn btn-success">Edit</a>
+                                               class="btn btn-sm btn-success">Edit</a>
                                             <a th:href="@{'/admin/remove-category/' + ${category.id}}"
-                                               class="btn btn-danger">Remove</a>
+                                               class="btn btn-sm btn-danger">Remove</a>
                                         </td>
                                     </tr>
                                 </tbody>

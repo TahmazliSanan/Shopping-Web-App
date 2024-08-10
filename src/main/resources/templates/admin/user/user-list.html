@@ -54,7 +54,12 @@
                         <td>
                             [[${user.address}]] / [[${user.city}]] / [[${user.state}]] / [[${user.pinCode}]]
                         </td>
-                        <td th:text="${user.isEnabled}"></td>
+                        <th:block th:if="${user.isEnabled}">
+                            <td>Active</td>
+                        </th:block>
+                        <th:block th:unless="${user.isEnabled}">
+                            <td>Inactive</td>
+                        </th:block>
                         <td>
                             <a th:href="@{'/admin/edit-account-status?status=true&id=' + ${user.id}}"
                                class="btn btn-sm btn-success">Active</a>
