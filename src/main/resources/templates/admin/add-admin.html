@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/base/base-layout::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Admin</title>
+</head>
+<body>
+<section>
+    <div class="container mt-5 p-5">
+        <th:block th:if="${session.successMessage}">
+            <div class="alert alert-success alert-dismissible fade show"
+                 role="alert">
+                [[${session.successMessage}]]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
+        </th:block>
+        <th:block th:if="${session.errorMessage}">
+            <div class="alert alert-danger alert-dismissible fade show"
+                 role="alert">
+                [[${session.errorMessage}]]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
+        </th:block>
+        <div class="row">
+            <div class="col-md-5 p-5">
+                <img alt="" src="/carousel/ecom.png" width="100%" height="400px">
+            </div>
+            <div class="col-md-7 p-2">
+                <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-header">
+                        <p class="fs-4 text-center">New Admin</p>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/admin/add-admin" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="fullName" class="form-label">Full Name</label>
+                                    <input id="fullName" class="form-control" name="fullName" type="text">
+                                </div>
+                                <div class="col">
+                                    <label for="mobileNumber" class="form-label">Mobile Number</label>
+                                    <input id="mobileNumber" class="form-control" name="mobileNumber" type="tel">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input id="email" class="form-control" name="email" type="email">
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input id="address" class="form-control" name="address" type="text">
+                                </div>
+                                <div class="col">
+                                    <label for="city" class="form-label">City</label>
+                                    <input id="city" class="form-control" name="city" type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="state" class="form-label">State</label>
+                                    <input id="state" class="form-control" name="state" type="text">
+                                </div>
+                                <div class="col">
+                                    <label for="pinCode" class="form-label">PIN Code</label>
+                                    <input id="pinCode" class="form-control" name="pinCode" type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input id="password" class="form-control" name="password" type="text">
+                                </div>
+                                <div class="col">
+                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <input id="confirmPassword" class="form-control" name="confirmPassword" type="password">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Profile Image</label>
+                                <input id="file" class="form-control"
+                                       name="file" type="file">
+                            </div>
+                            <button type="submit" class="btn bg-primary text-white col-md-12">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
