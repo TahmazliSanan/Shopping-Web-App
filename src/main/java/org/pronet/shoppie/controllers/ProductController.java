@@ -26,11 +26,6 @@ public class ProductController extends BaseController {
         super.getUserDetails(principal, model);
     }
 
-    public ProductController(CategoryService categoryService, ProductService productService) {
-        this.categoryService = categoryService;
-        this.productService = productService;
-    }
-
     @GetMapping("/list")
     public String productListPage(
             @RequestParam(value = "category", defaultValue = "") String category,
