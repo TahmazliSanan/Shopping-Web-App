@@ -102,7 +102,7 @@
                                                 <input th:value="${orderDetails.id}" name="id" type="hidden">
                                                 <div class="col">
                                                     <th:block th:if="${orderDetails.status == 'Cancelled' || orderDetails.status == 'Delivered'}">
-                                                        <button class="btn btn-primary btn-sm col disabled">Update</button>
+                                                        <button class="btn btn-sm btn-primary col disabled">Update</button>
                                                     </th:block>
                                                     <th:block th:unless="${orderDetails.status == 'Cancelled' || orderDetails.status == 'Delivered'}">
                                                         <button  class="btn btn-sm btn-primary">Update</button>
@@ -162,7 +162,7 @@
                                             <input th:value="${order.id}" name="id" type="hidden">
                                             <div class="col">
                                                 <th:block th:if="${order.status == 'Cancelled' || order.status == 'Delivered'}">
-                                                    <button class="btn btn-primary btn-sm col disabled">Update</button>
+                                                    <button class="btn btn-sm btn-primary col disabled">Update</button>
                                                 </th:block>
                                                 <th:block th:unless="${order.status == 'Cancelled' || order.status == 'Delivered'}">
                                                     <button  class="btn btn-sm btn-primary">Update</button>
