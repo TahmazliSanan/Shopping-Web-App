@@ -6,10 +6,7 @@ import org.pronet.shoppie.entities.Category;
 import org.pronet.shoppie.entities.Order;
 import org.pronet.shoppie.entities.Product;
 import org.pronet.shoppie.entities.UserEntity;
-import org.pronet.shoppie.services.CategoryService;
-import org.pronet.shoppie.services.OrderService;
-import org.pronet.shoppie.services.ProductService;
-import org.pronet.shoppie.services.UserService;
+import org.pronet.shoppie.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -211,11 +208,32 @@ public class AdminController extends BaseController {
         return "redirect:/admin/product-list";
     }
 
+    @GetMapping("/admin-list")
+    public String adminListPage(Model model) {
+        List<UserEntity> adminList = userService.getList("Admin");
+        model.addAttribute("adminList", adminList);
+        return "admin/admin-list";
+    }
+
     @GetMapping("/user-list")
     public String userListPage(Model model) {
         List<UserEntity> userList = userService.getList("User");
         model.addAttribute("userList", userList);
         return "admin/user/user-list";
+    }
+
+    @GetMapping("/edit-admin-account-status")
+    public String editAdminAccountStatusPage(
+            @RequestParam Boolean status,
+            @RequestParam Long id,
+            HttpSession session) {
+        Boolean result = userService.editAccountStatus(id, status);
+        if (result) {
+            session.setAttribute("successMessage", "Admin's account status is updated successfully!");
+        } else {
+            session.setAttribute("errorMessage", "Admin's account status is not updated!");
+        }
+        return "redirect:/admin/admin-list";
     }
 
     @GetMapping("/edit-account-status")
@@ -293,5 +311,37 @@ public class AdminController extends BaseController {
             model.addAttribute("search", false);
         }
         return "admin/order/order-list";
+    }
+
+    @GetMapping("/add-admin")
+    public String addAdminPage() {
+        return "admin/add-admin";
+    }
+
+    @PostMapping("/add-admin")
+    public String addAdmin(
+            @ModelAttribute UserEntity userEntity,
+            @RequestParam("file") MultipartFile file,
+            HttpSession session) throws IOException {
+        String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
+        userEntity.setProfileImageName(imageName);
+        Boolean isUserExist = userService.existsUserByEmail(userEntity.getEmail());
+        if (isUserExist) {
+            session.setAttribute("errorMessage", "User is already exist!");
+            return "redirect:/admin/add-admin";
+        } else {
+            if (!(userEntity.getPassword().equals(userEntity.getConfirmPassword()))) {
+                session.setAttribute("errorMessage", "Passwords don't match!");
+                return "redirect:/admin/add-admin";
+            } else {
+                UserEntity savedUser = userService.addAdmin(userEntity, file);
+                if (!ObjectUtils.isEmpty(savedUser)) {
+                    session.setAttribute("successMessage", "Process is completed successfully!");
+                } else {
+                    session.setAttribute("errorMessage", "Process is not completed!");
+                }
+            }
+        }
+        return "redirect:/admin/add-admin";
     }
 }
