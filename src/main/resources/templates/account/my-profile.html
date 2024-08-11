@@ -4,7 +4,7 @@
       th:replace="~{/base/base-layout::layout(~{::section})}">
 <head>
     <meta charset="UTF-8">
-    <title>My Profile</title>
+    <title>Update Profile</title>
 </head>
 <body>
 <section>
@@ -147,50 +147,6 @@
                             </form>
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <hr>
-            <div class="col-md-10 offset-md-1 mt-1">
-                <div class="row">
-                    <p class="text-center fs-3">Change Password</p>
-                    <div class="col-md-6 offset-md-3">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <form action="/change-password" method="post">
-                                    <tr>
-                                        <th scope="row">Current Password</th>
-                                        <td>
-                                            <label>
-                                                <input type="password" name="currentPassword" class="form-control">
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">New Password</th>
-                                        <td>
-                                            <label>
-                                                <input type="password" name="newPassword" class="form-control">
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Confirm Password</th>
-                                        <td>
-                                            <label>
-                                                <input type="password" name="confirmPassword" class="form-control">
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td class="text-center">
-                                            <button class="btn btn-sm bg-success text-light col-md-4">Update</button>
-                                        </td>
-                                    </tr>
-                                </form>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         </div>
