@@ -86,6 +86,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getActiveProductList(String category) {
+        return productRepository.findByCategory(category);
+    }
+
+    @Override
     public Page<Product> searchProduct(Integer pageNumber, Integer pageSize, String character) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return productRepository.findByNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(character, character, pageable);

@@ -12,6 +12,7 @@ public interface ProductService {
     Product getById(Long id);
     Page<Product> getList(Integer pageNumber, Integer pageSize);
     List<Product> getActiveTopProductList();
+    List<Product> getActiveProductList(String category);
     Page<Product> getActiveProductList(Integer pageNumber, Integer pageSize, String category);
     Page<Product> searchActiveProduct(Integer pageNumber, Integer pageSize, String category, String character);
     Page<Product> searchProduct(Integer pageNumber, Integer pageSize, String character);
