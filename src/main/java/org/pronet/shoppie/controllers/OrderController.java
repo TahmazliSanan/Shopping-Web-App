@@ -80,7 +80,9 @@ public class OrderController extends BaseController {
             Principal principal) {
         UserEntity user = getLoggedInUserDetails(principal);
         Page<Order> page = orderService.getListByUser(user.getId(), pageNumber, pageSize);
-        model.addAttribute("orderList", page);
+        List<Order> orderList = page.getContent();
+        model.addAttribute("orderList", orderList);
+        model.addAttribute("orderListSize", orderList.size());
         model.addAttribute("pageNumber", page.getNumber());
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("totalElements", page.getTotalElements());
