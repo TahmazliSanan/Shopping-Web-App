@@ -11,7 +11,7 @@ public class RequestMatcherPatterns {
             "/my-profile", "/update-profile", "/change-password", "/settings"
     };
     public static final String[] USER_AUTH_MATCHERS = {
-            "/product/details/{id}", "/cart/**", "/order/**"
+            "/delete-account", "/product/details/{id}", "/cart/**", "/order/**"
     };
     public static final String[] ADMIN_AUTH_MATCHERS = {
             "/admin/**"
