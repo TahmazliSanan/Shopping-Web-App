@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/base/base-layout::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Account</title>
+</head>
+<body>
+<section>
+    <div class="container-fluid mt-5 p-5">
+        <th:block th:if="${session.successMessage}">
+            <div class="alert alert-success alert-dismissible fade show"
+                 role="alert">
+                [[${session.successMessage}]]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
+        </th:block>
+        <th:block th:if="${session.errorMessage}">
+            <div class="alert alert-danger alert-dismissible fade show"
+                 role="alert">
+                [[${session.errorMessage}]]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
+        </th:block>
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <p class="fs-3 text-center">Delete Account</p>
+                <hr>
+                <div class="text-center">
+                    <img alt="" th:src="@{'/profile-images/' + ${user.profileImageName}}"
+                         class="border p-2" style="width: 110px; height: 110px; border-radius: 50%;">
+                </div>
+                <div class="col-md-8 offset-md-2 mt-4">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <form action="/delete-account" method="post">
+                            <tr>
+                                <th scope="row">Name</th>
+                                <td>:</td>
+                                <td>
+                                    <label>
+                                        <input id="fullName" type="text" name="fullName" class="form-control"
+                                               th:value="${user.fullName}" disabled>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Mobile Number</th>
+                                <td>:</td>
+                                <td>
+                                    <label>
+                                        <input type="tel" name="mobileNumber"
+                                               class="form-control" th:value="${user.mobileNumber}" disabled>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td>:</td>
+                                <td>
+                                    <label>
+                                        <input type="email" name="email" class="form-control"
+                                               th:value="${user.email}" disabled>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Address</th>
+                                <td>:</td>
+                                <td>
+                                    <label>
+                                        <input type="text" name="address" class="form-control"
+                                               th:value="${user.address}" disabled>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">City</th>
+                                <td>:</td>
+                                <td>
+                                    <label>
+                                        <input type="text" name="city" class="form-control"
+                                               th:value="${user.city}" disabled>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">State</th>
+                                <td>:</td>
+                                <td>
+                                    <label>
+                                        <input type="text" name="state" class="form-control"
+                                               th:value="${user.state}" disabled>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">PIN Code</th>
+                                <td>:</td>
+                                <td>
+                                    <label>
+                                        <input type="text" name="pinCode" class="form-control"
+                                               th:value="${user.pinCode}" disabled>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Image</th>
+                                <td>:</td>
+                                <td>
+                                    <label>
+                                        <input type="file" name="file" class="form-control"
+                                               value="" disabled>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Role</th>
+                                <td>:</td>
+                                <td>
+                                    <label>
+                                        <input type="text" name="role" class="form-control"
+                                               th:value="${user.role}" disabled>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Account Status</th>
+                                <td>:</td>
+                                <td>
+                                    <label>
+                                        <input type="text" name="isEnabled" class="form-control"
+                                               th:value="${user.isEnabled}" disabled>
+                                    </label>
+                                    <input type="hidden" th:value="${user.id}" name="id">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm bg-danger text-light">Yes</button>
+                                </td>
+                                <td class="text-center">
+                                    <a th:href="@{'/settings'}" class="btn btn-sm bg-dark text-light">No</a>
+                                </td>
+                            </tr>
+                        </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
