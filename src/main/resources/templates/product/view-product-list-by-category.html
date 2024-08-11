@@ -19,7 +19,7 @@
                 <p class="text-danger fw-bold">[[${session.errorMessage}]]</p>
                 <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
             </th:block>
-            <th:block th:if="${productListSize > 0}">
+            <th:block th:if="${productList.size() > 0}">
                 <div class="p-3">
                     <table class="table table-bordered">
                         <thead class="table-light">
@@ -50,35 +50,9 @@
                     </table>
                 </div>
             </th:block>
-            <th:block th:unless="${productListSize > 0}">
+            <th:block th:unless="${productList.size() > 0}">
                 <p class="fs-4 text-center mt-4 text-danger">Products are not available!</p>
             </th:block>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">Total Products: [[${totalElements}]]</div>
-                </div>
-                <th:block th:if="${productListSize > 0}">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item" th:classappend="${isFirstPage} ? 'disabled' : ''">
-                                <a class="page-link"
-                                   th:href="@{'/admin/product-list?pageNumber=' + ${pageNumber - 1}}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"
-                                th:classappend="${pageNumber + 1 == i} ? 'active' : ''">
-                                <a class="page-link" th:href="@{'/admin/product-list?pageNumber=' + ${i - 1}}">[[${i}]]</a>
-                            </li>
-                            <li class="page-item" th:classappend="${isLastPage} ? 'disabled' : ''">
-                                <a class="page-link" th:href="@{'/admin/product-list?pageNumber=' + ${pageNumber + 1}}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </th:block>
-            </div>
         </div>
     </div>
 </section>
