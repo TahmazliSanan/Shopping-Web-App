@@ -14,6 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM products WHERE is_active = 1 ORDER BY id DESC LIMIT 4")
     List<Product> takeActiveTopProducts();
     Page<Product> findByIsActiveTrue(Pageable pageable);
+    List<Product> findByCategory(String category);
     Page<Product> findByCategory(Pageable pageable,String category);
     Page<Product> findByNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(String firstCharacter, String secondCharacter, Pageable pageable);
     Page<Product> findByIsActiveTrueAndNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(String firstCharacter, String secondCharacter, Pageable pageable);
