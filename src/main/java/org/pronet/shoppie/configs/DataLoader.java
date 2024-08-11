@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -37,7 +38,9 @@ public class DataLoader implements CommandLineRunner {
                     true,
                     0,
                     null,
-                    null
+                    null,
+                    new ArrayList<>(),
+                    new ArrayList<>()
             );
             adminList.add(newAdmin);
         }
