@@ -50,20 +50,10 @@ public class CategoryController extends BaseController {
     @GetMapping("/list/{id}/view-products")
     public String viewProductListPage(
             @PathVariable("id") Long id,
-            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
             Model model) {
         Category foundedCategory = categoryService.getById(id);
-        Page<Product> page = productService.getActiveProductList(pageNumber, pageSize, foundedCategory.getName());
-        List<Product> productList = page.getContent();
+        List<Product> productList = productService.getActiveProductList(foundedCategory.getName());
         model.addAttribute("productList", productList);
-        model.addAttribute("productListSize", productList.size());
-        model.addAttribute("pageNumber", page.getNumber());
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("totalElements", page.getTotalElements());
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("isFirstPage", page.isFirst());
-        model.addAttribute("isLastPage", page.isLast());
         return "product/view-product-list-by-category";
     }
 }
