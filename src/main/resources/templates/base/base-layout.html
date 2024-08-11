@@ -86,8 +86,8 @@
                            data-bs-toggle="dropdown" aria-expanded="false" th:text="${user.fullName}">
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" th:href="@{'/my-profile'}">My Profile</a>
+                            <li th:if="${user.role == 'User'}">
+                                <a class="dropdown-item" th:href="@{'/settings'}">Settings</a>
                             </li>
                             <li th:if="${user.role == 'User'}">
                                 <a class="dropdown-item" th:href="@{'/order/my-orders'}">My Orders</a>
