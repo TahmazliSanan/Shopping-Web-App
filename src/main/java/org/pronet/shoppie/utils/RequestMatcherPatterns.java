@@ -8,7 +8,7 @@ public class RequestMatcherPatterns {
             "/product/list", "/product/search",
             "/sign-up-view", "/sign-up", "/sign-in",
             "/forgot-password", "/forgot-password-view", "/reset-password",
-            "/my-profile", "/update-profile", "/change-password"
+            "/my-profile", "/update-profile", "/change-password", "/settings"
     };
     public static final String[] USER_AUTH_MATCHERS = {
             "/product/details/{id}", "/cart/**", "/order/**"
