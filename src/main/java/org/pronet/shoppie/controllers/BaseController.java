@@ -22,9 +22,14 @@ public class BaseController {
         if (principal != null) {
             String email = principal.getName();
             UserEntity user = userService.getUserByEmail(email);
-            model.addAttribute("user", user);
-            Long countCart = cartService.getCountCart(user.getId());
-            model.addAttribute("countCart", countCart);
+            if (user != null) {
+                model.addAttribute("user", user);
+                Long countCart = cartService.getCountCart(user.getId());
+                model.addAttribute("countCart", countCart);
+            } else {
+                model.addAttribute("user", null);
+                model.addAttribute("countCart", 0L);
+            }
         }
     }
 }
