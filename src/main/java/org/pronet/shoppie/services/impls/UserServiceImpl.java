@@ -57,6 +57,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Boolean deleteAccount(Long id) {
+        UserEntity foundedUser = userRepository
+                .findById(id)
+                .orElse(null);
+        if (!ObjectUtils.isEmpty(foundedUser)) {
+            userRepository.delete(foundedUser);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public UserEntity addAdmin(UserEntity userEntity, MultipartFile file) throws IOException {
         String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
         userEntity.setProfileImageName(imageName);
