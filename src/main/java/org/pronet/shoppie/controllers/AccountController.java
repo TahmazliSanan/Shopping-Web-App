@@ -142,6 +142,11 @@ public class AccountController extends BaseController {
         return "account/my-profile";
     }
 
+    @GetMapping("/settings")
+    public String accountSettingsPage() {
+        return "account/settings";
+    }
+
     @PostMapping("/update-profile")
     public String updateProfilePage(
             @ModelAttribute UserEntity userEntity,
@@ -154,6 +159,11 @@ public class AccountController extends BaseController {
             session.setAttribute("successMessage", "Profile is updated successfully!");
         }
         return "redirect:/my-profile";
+    }
+
+    @GetMapping("/change-password")
+    public String changePasswordPage() {
+        return "account/change-password";
     }
 
     @PostMapping("/change-password")
@@ -181,6 +191,6 @@ public class AccountController extends BaseController {
         } else {
             session.setAttribute("errorMessage", "Current password is not correct!");
         }
-        return "redirect:/my-profile";
+        return "redirect:/change-password";
     }
 }
