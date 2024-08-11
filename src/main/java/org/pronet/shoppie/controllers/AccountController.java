@@ -11,10 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -78,6 +75,29 @@ public class AccountController extends BaseController {
     @GetMapping("/sign-in")
     public String signInPage() {
         return "account/sign-in";
+    }
+
+    @GetMapping("/delete-account")
+    public String deleteAccountPage(
+            Principal principal,
+            Model model) {
+        UserEntity user = getLoggedInUserDetails(principal);
+        model.addAttribute("user", user);
+        return "account/delete-account";
+    }
+
+    @PostMapping("/delete-account")
+    public String deleteAccount(
+            Principal principal,
+            HttpSession session) {
+        UserEntity user = getLoggedInUserDetails(principal);
+        Boolean isDeletedAccount = userService.deleteAccount(user.getId());
+        if (isDeletedAccount) {
+            session.setAttribute("successMessage", "Account is deleted successfully!");
+        } else {
+            session.setAttribute("errorMessage", "Account is not deleted!");
+        }
+        return "redirect:/sign-in";
     }
 
     @GetMapping("/forgot-password-view")
