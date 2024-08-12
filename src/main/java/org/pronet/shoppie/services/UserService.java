@@ -9,6 +9,7 @@ import java.util.List;
 public interface UserService {
     UserEntity signUp(UserEntity userEntity, MultipartFile file) throws IOException;
     Boolean deleteAccount(Long id);
+    Boolean deleteProfilePhoto(Long id);
     UserEntity addAdmin(UserEntity userEntity, MultipartFile file) throws IOException;
     UserEntity getUserByEmail(String email);
     UserEntity getUserByToken(String token);

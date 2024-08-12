@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity signUp(UserEntity userEntity, MultipartFile file) throws IOException {
-        String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
+        String imageName = file != null ? file.getOriginalFilename() : null;
         userEntity.setProfileImageName(imageName);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         userEntity.setConfirmPassword(passwordEncoder.encode(userEntity.getConfirmPassword()));
@@ -69,8 +69,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Boolean deleteProfilePhoto(Long id) {
+        UserEntity foundedUser = userRepository
+                .findById(id)
+                .orElse(null);
+        if (!ObjectUtils.isEmpty(foundedUser)) {
+            foundedUser.setProfileImageName(null);
+            userRepository.save(foundedUser);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public UserEntity addAdmin(UserEntity userEntity, MultipartFile file) throws IOException {
-        String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
+        String imageName = file != null ? file.getOriginalFilename() : null;
         userEntity.setProfileImageName(imageName);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         userEntity.setConfirmPassword(passwordEncoder.encode(userEntity.getConfirmPassword()));
