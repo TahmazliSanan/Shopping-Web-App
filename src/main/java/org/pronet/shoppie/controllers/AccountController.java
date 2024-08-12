@@ -159,15 +159,22 @@ public class AccountController extends BaseController {
     public String resetPassword(
             @RequestParam String token,
             @RequestParam String password,
-            Model model) {
+            @RequestParam String confirmPassword,
+            Model model,
+            HttpSession session) {
         UserEntity foundedUser = userService.getUserByToken(token);
         if (foundedUser == null) {
             model.addAttribute("errorMessage", "Your link is invalid or expired!");
         } else {
-            foundedUser.setPassword(passwordEncoder.encode(password));
-            foundedUser.setResetToken(null);
-            userService.updateUser(foundedUser);
-            model.addAttribute("message","Password is changed successfully!");
+            if (password.equals(confirmPassword)) {
+                foundedUser.setPassword(passwordEncoder.encode(password));
+                foundedUser.setResetToken(null);
+                userService.updateUser(foundedUser);
+                model.addAttribute("message","Password is changed successfully!");
+            } else {
+                session.setAttribute("errorMessage","Passwords don't match!");
+                return "redirect:/sign-in";
+            }
         }
         return "account/message";
     }
