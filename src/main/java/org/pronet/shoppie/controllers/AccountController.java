@@ -159,7 +159,11 @@ public class AccountController extends BaseController {
     }
 
     @GetMapping("/my-profile")
-    public String myProfilePage() {
+    public String myProfilePage(
+            Principal principal,
+            Model model) {
+        UserEntity user = getLoggedInUserDetails(principal);
+        model.addAttribute("user", user);
         return "account/my-profile";
     }
 
