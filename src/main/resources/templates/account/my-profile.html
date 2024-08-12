@@ -155,6 +155,10 @@
                                     </td>
                                 </tr>
                             </form>
+                            <form method="get" action="/delete-profile-photo">
+                                <input type="hidden" th:value="${user.id}" name="id">
+                                <button class="btn btn-sm bg-danger text-light">Delete photo</button>
+                            </form>
                         </tbody>
                     </table>
                 </div>
