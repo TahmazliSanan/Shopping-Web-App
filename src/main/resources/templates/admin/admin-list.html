@@ -48,7 +48,7 @@
                             <th:block th:if="${admin.profileImageName != null &&
                                                 !admin.profileImageName.isBlank() &&
                                                 !admin.profileImageName.isEmpty()}">
-                                <img th:src="@{'/profile-images/' + ${user.profileImageName}}"
+                                <img th:src="@{'/profile-images/' + ${admin.profileImageName}}"
                                      width="50px" height="50px" alt="...">
                             </th:block>
                             <th:block th:if="${admin.profileImageName == null ||
