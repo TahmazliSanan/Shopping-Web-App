@@ -29,10 +29,18 @@
             <div class="col-md-10 offset-md-1">
                 <p class="fs-3 text-center">Delete Account</p>
                 <hr>
-                <div class="text-center">
+                <th:block th:if="${user.profileImageName != null &&
+                        !user.profileImageName.isBlank() &&
+                        !user.profileImageName.isEmpty()}">
                     <img alt="" th:src="@{'/profile-images/' + ${user.profileImageName}}"
                          class="border p-2" style="width: 110px; height: 110px; border-radius: 50%;">
-                </div>
+                </th:block>
+                <th:block th:if="${user.profileImageName == null ||
+                        user.profileImageName.isBlank() ||
+                        user.profileImageName.isEmpty()}">
+                    <img alt="" src="/profile-images/no-profile.jpg"
+                         class="border p-2" style="width: 110px; height: 110px; border-radius: 50%;">
+                </th:block>
                 <div class="col-md-8 offset-md-2 mt-4">
                     <table class="table table-borderless">
                         <tbody>

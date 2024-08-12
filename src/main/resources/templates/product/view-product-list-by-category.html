@@ -36,8 +36,18 @@
                         <tbody>
                         <tr th:each="product : ${productList}">
                             <td>
-                                <img th:src="@{'/product-images/' + ${product.imageName}}"
-                                     width="70px" height="70px" alt="">
+                                <th:block th:if="${product.imageName != null &&
+                                                !product.imageName.isBlank() &&
+                                                !product.imageName.isEmpty()}">
+                                    <img th:src="@{'/product-images/' + ${product.imageName}}"
+                                         width="70px" height="70px" alt="">
+                                </th:block>
+                                <th:block th:if="${product.imageName == null ||
+                                                product.imageName.isBlank() ||
+                                                product.imageName.isEmpty()}">
+                                    <img src="/product-images/no-picture.jpg"
+                                         width="70px" height="70px" alt="">
+                                </th:block>
                             </td>
                             <td>[[${product.name}]]</td>
                             <td>[[${product.category}]]</td>

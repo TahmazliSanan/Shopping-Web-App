@@ -28,8 +28,18 @@
           </th:block>
           <div class="row">
             <div class="col-md-6 text-end">
-              <img alt="" th:src="@{'/product-images/' + ${foundedProduct.imageName}}"
-                   width="330px" height="400px">
+              <th:block th:if="${foundedProduct.imageName != null &&
+                                                !foundedProduct.imageName.isBlank() &&
+                                                !foundedProduct.imageName.isEmpty()}">
+                <img alt="" th:src="@{'/product-images/' + ${foundedProduct.imageName}}"
+                     width="330px" height="400px">
+              </th:block>
+              <th:block th:if="${foundedProduct.imageName == null ||
+                                                foundedProduct.imageName.isBlank() ||
+                                                foundedProduct.imageName.isEmpty()}">
+                <img alt="" src="/product-images/no-picture.jpg"
+                     width="330px" height="400px">
+              </th:block>
             </div>
             <div class="col-md-6">
               <p class="fs-3" th:text="${foundedProduct.name}"></p>

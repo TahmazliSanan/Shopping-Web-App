@@ -45,8 +45,18 @@
                     <tbody>
                     <tr th:each="user : ${userList}">
                         <td>
-                            <img th:src="@{'/profile-images/' + ${user.profileImageName}}"
-                                 width="50px" height="50px" alt="...">
+                            <th:block th:if="${user.profileImageName != null &&
+                                                !user.profileImageName.isBlank() &&
+                                                !user.profileImageName.isEmpty()}">
+                                <img th:src="@{'/profile-images/' + ${user.profileImageName}}"
+                                     width="50px" height="50px" alt="...">
+                            </th:block>
+                            <th:block th:if="${user.profileImageName == null ||
+                                                user.profileImageName.isBlank() ||
+                                                user.profileImageName.isEmpty()}">
+                                <img src="/profile-images/no-profile.jpg"
+                                     width="50px" height="50px" alt="...">
+                            </th:block>
                         </td>
                         <td th:text="${user.fullName}"></td>
                         <td th:text="${user.email}"></td>

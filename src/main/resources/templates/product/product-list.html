@@ -52,8 +52,18 @@
                                     <div class="col-md-3" th:each="product : ${productList}">
                                         <div class="card">
                                             <div class="card-body">
-                                                <img alt="..." width="100%" height="150px"
-                                                     th:src="@{'/product-images/' + ${product.imageName}}">
+                                                <th:block th:if="${product.imageName != null &&
+                                                !product.imageName.isBlank() &&
+                                                !product.imageName.isEmpty()}">
+                                                    <img alt="" th:src="@{'/product-images/' + ${product.imageName}}"
+                                                         width="100%" height="150px">
+                                                </th:block>
+                                                <th:block th:if="${product.imageName == null ||
+                                                product.imageName.isBlank() ||
+                                                product.imageName.isEmpty()}">
+                                                    <img alt="" src="/category-images/no-picture.jpg"
+                                                         width="100%" height="150px">
+                                                </th:block>
                                                     <p class="fs-5 text-center" th:text="${product.name}"></p>
                                                     <div class="row text-center">
                                                         <p class="fs-6 fw-bold">
