@@ -24,9 +24,7 @@ public class UserEntity {
     private String email;
     private String mobileNumber;
     private String city;
-    private String state;
-    private String pinCode;
-    private String address;
+    private String country;
     private String password;
     @Transient
     private String confirmPassword;
