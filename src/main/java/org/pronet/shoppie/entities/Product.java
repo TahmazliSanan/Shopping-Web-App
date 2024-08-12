@@ -22,7 +22,7 @@ public class Product {
     private Double discountPrice;
     private String category;
     private String description;
-    private Integer stock;
+    private Integer countInStock;
     private String imageName;
     private Boolean isActive;
 }

@@ -105,7 +105,7 @@ public class ProductServiceImpl implements ProductService {
         dbProduct.setDiscount(product.getDiscount());
         dbProduct.setCategory(product.getCategory());
         dbProduct.setDescription(product.getDescription());
-        dbProduct.setStock(product.getStock());
+        dbProduct.setCountInStock(product.getCountInStock());
         dbProduct.setImageName(imageName);
         dbProduct.setIsActive(product.getIsActive());
         Double discount = product.getPrice() * (product.getDiscount() / 100.0);

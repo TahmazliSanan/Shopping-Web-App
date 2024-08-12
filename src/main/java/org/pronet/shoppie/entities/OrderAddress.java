@@ -22,6 +22,6 @@ public class OrderAddress {
     private String mobileNumber;
     private String address;
     private String city;
-    private String state;
+    private String country;
     private String pinCode;
 }

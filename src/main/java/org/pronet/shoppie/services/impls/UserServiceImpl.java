@@ -139,10 +139,8 @@ public class UserServiceImpl implements UserService {
             if (!ObjectUtils.isEmpty(dbUser)) {
                 newUser.setFullName(userEntity.getFullName());
                 newUser.setMobileNumber(userEntity.getMobileNumber());
-                newUser.setAddress(userEntity.getAddress());
                 newUser.setCity(userEntity.getCity());
-                newUser.setState(userEntity.getState());
-                newUser.setPinCode(userEntity.getPinCode());
+                newUser.setCountry(userEntity.getCountry());
                 userRepository.save(newUser);
             }
             if (!file.isEmpty()) {
