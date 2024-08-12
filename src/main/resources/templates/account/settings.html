@@ -15,9 +15,16 @@
         <div class="row mt-5">
             <a th:href="@{'/change-password'}" class="btn btn-success">Change Password</a>
         </div>
-        <div class="row mt-5">
-            <a th:href="@{'/delete-account'}" class="btn btn-danger">Delete Account</a>
-        </div>
+        <th:block th:if="${user.role == 'User'}">
+            <div class="row mt-5">
+                <a th:href="@{'/delete-account'}" class="btn btn-danger">Delete Account</a>
+            </div>
+        </th:block>
+        <th:block th:unless="${user.role == 'User'}">
+            <div th:if="${adminCount > 1}" class="row mt-5">
+                <a th:href="@{'/delete-account'}" class="btn btn-danger">Delete Account</a>
+            </div>
+        </th:block>
     </div>
 </section>
 </body>
