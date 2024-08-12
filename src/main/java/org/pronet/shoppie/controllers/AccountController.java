@@ -101,6 +101,20 @@ public class AccountController extends BaseController {
         return "redirect:/sign-in";
     }
 
+    @GetMapping("/delete-profile-photo")
+    public String deleteProfilePhotoPage(
+            Principal principal,
+            HttpSession session) {
+        UserEntity user = getLoggedInUserDetails(principal);
+        Boolean isDeletedProfilePhoto = userService.deleteProfilePhoto(user.getId());
+        if (isDeletedProfilePhoto) {
+            session.setAttribute("successMessage", "Profile photo is deleted successfully!");
+        } else {
+            session.setAttribute("errorMessage", "Profile photo is not deleted!");
+        }
+        return "redirect:/my-profile";
+    }
+
     @GetMapping("/forgot-password-view")
     public String forgotPasswordPage() {
         return "account/forgot-password";
