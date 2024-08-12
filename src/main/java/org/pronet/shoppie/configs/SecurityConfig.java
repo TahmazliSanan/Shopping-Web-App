@@ -56,6 +56,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(RequestMatcherPatterns.ADMIN_AUTH_MATCHERS)
                         .hasAuthority("Admin"))
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers(RequestMatcherPatterns.USER_AND_ADMIN_AUTH_MATCHERS)
+                        .hasAnyAuthority("User", "Admin"))
                 .formLogin(form -> form
                         .loginPage("/sign-in")
                         .loginProcessingUrl("/login")

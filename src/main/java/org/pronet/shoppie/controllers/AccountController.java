@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -163,7 +164,13 @@ public class AccountController extends BaseController {
     }
 
     @GetMapping("/settings")
-    public String accountSettingsPage() {
+    public String accountSettingsPage(
+            Principal principal,
+            Model model) {
+        UserEntity user = getLoggedInUserDetails(principal);
+        List<UserEntity> adminList = userService.getList("Admin");
+        model.addAttribute("user", user);
+        model.addAttribute("adminCount", adminList.size());
         return "account/settings";
     }
 
