@@ -48,7 +48,7 @@
                         <tbody>
                             <form action="/update-profile" method="post" enctype="multipart/form-data">
                                 <tr>
-                                    <th scope="row">Name</th>
+                                    <th scope="row">Full Name</th>
                                     <td>:</td>
                                     <td>
                                         <label>
@@ -78,16 +78,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Address</th>
-                                    <td>:</td>
-                                    <td>
-                                        <label>
-                                            <input type="text" name="address" class="form-control"
-                                                   th:value="${user.address}">
-                                        </label>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th scope="row">City</th>
                                     <td>:</td>
                                     <td>
@@ -98,22 +88,12 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">State</th>
+                                    <th scope="row">Country</th>
                                     <td>:</td>
                                     <td>
                                         <label>
-                                            <input type="text" name="state" class="form-control"
-                                                   th:value="${user.state}">
-                                        </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">PIN Code</th>
-                                    <td>:</td>
-                                    <td>
-                                        <label>
-                                            <input type="text" name="pinCode" class="form-control"
-                                                   th:value="${user.pinCode}">
+                                            <input type="text" name="country" class="form-control"
+                                                   th:value="${user.country}">
                                         </label>
                                     </td>
                                 </tr>
@@ -142,8 +122,14 @@
                                     <td>:</td>
                                     <td>
                                         <label>
-                                            <input type="text" name="isEnabled" class="form-control"
-                                                   readonly th:value="${user.isEnabled}">
+                                            <th:block th:if="${user.isEnabled}">
+                                                <input type="text" name="isEnabled" class="form-control"
+                                                       readonly value="Active">
+                                            </th:block>
+                                            <th:block th:unless="${user.isEnabled}">
+                                                <input type="text" name="isEnabled" class="form-control"
+                                                       readonly value="Inactive">
+                                            </th:block>
                                         </label>
                                         <input type="hidden" th:value="${user.id}" name="id">
                                     </td>

@@ -46,7 +46,7 @@
                         <tbody>
                         <form action="/delete-account" method="post">
                             <tr>
-                                <th scope="row">Name</th>
+                                <th scope="row">Full Name</th>
                                 <td>:</td>
                                 <td>
                                     <label>
@@ -76,16 +76,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">Address</th>
-                                <td>:</td>
-                                <td>
-                                    <label>
-                                        <input type="text" name="address" class="form-control"
-                                               th:value="${user.address}" disabled>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
                                 <th scope="row">City</th>
                                 <td>:</td>
                                 <td>
@@ -96,22 +86,12 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">State</th>
+                                <th scope="row">Country</th>
                                 <td>:</td>
                                 <td>
                                     <label>
-                                        <input type="text" name="state" class="form-control"
-                                               th:value="${user.state}" disabled>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">PIN Code</th>
-                                <td>:</td>
-                                <td>
-                                    <label>
-                                        <input type="text" name="pinCode" class="form-control"
-                                               th:value="${user.pinCode}" disabled>
+                                        <input type="text" name="country" class="form-control"
+                                               th:value="${user.country}" disabled>
                                     </label>
                                 </td>
                             </tr>
@@ -140,8 +120,14 @@
                                 <td>:</td>
                                 <td>
                                     <label>
-                                        <input type="text" name="isEnabled" class="form-control"
-                                               th:value="${user.isEnabled}" disabled>
+                                        <th:block th:if="${user.isEnabled}">
+                                            <input type="text" name="isEnabled" class="form-control"
+                                                   disabled value="Active">
+                                        </th:block>
+                                        <th:block th:unless="${user.isEnabled}">
+                                            <input type="text" name="isEnabled" class="form-control"
+                                                   disabled value="Inactive">
+                                        </th:block>
                                     </label>
                                     <input type="hidden" th:value="${user.id}" name="id">
                                 </td>
