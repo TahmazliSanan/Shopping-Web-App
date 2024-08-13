@@ -71,8 +71,26 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Page<Category> getActiveCategoryList(Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return categoryRepository.findByIsActiveTrue(pageable);
+    }
+
+    @Override
+    public Page<Category> searchActiveCategory(Integer pageNumber, Integer pageSize, String character) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return categoryRepository.findByIsActiveTrueAndNameContainingIgnoreCase(character, pageable);
+    }
+
+    @Override
     public List<Category> getActiveTopCategoryList() {
         return categoryRepository.takeActiveTopCategories();
+    }
+
+    @Override
+    public Page<Category> searchCategory(Integer pageNumber, Integer pageSize, String character) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return categoryRepository.findByNameContainingIgnoreCase(character, pageable);
     }
 
     @Override
