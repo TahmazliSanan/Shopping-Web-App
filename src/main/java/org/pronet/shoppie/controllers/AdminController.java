@@ -46,8 +46,14 @@ public class AdminController extends BaseController {
     public String categoryListPage(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
             @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "") String character,
             Model model) {
-        Page<Category> page = categoryService.getList(pageNumber, pageSize);
+        Page<Category> page;
+        if (character != null && !character.isEmpty()) {
+            page = categoryService.searchCategory(pageNumber, pageSize, character.trim());
+        } else {
+            page = categoryService.getList(pageNumber, pageSize);
+        }
         List<Category> categoryList = page.getContent();
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("categoryListSize", categoryList.size());
@@ -154,7 +160,7 @@ public class AdminController extends BaseController {
             Model model) {
         Page<Product> page;
         if (character != null && !character.isEmpty()) {
-            page = productService.searchProduct(pageNumber, pageSize, character);
+            page = productService.searchProduct(pageNumber, pageSize, character.trim());
         } else {
             page = productService.getList(pageNumber, pageSize);
         }
@@ -209,17 +215,50 @@ public class AdminController extends BaseController {
     }
 
     @GetMapping("/admin-list")
-    public String adminListPage(Model model) {
-        List<UserEntity> adminList = userService.getList("Admin");
-        model.addAttribute("adminList", adminList);
-        model.addAttribute("adminCount", adminList.size());
+    public String adminListPage(
+            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "") String character,
+            Model model) {
+        Page<UserEntity> page;
+        if (character != null && !character.isEmpty()) {
+            page = userService.searchAdmin(pageNumber, pageSize, character.trim());
+        } else {
+            page = userService.getList(pageNumber, pageSize, "Admin");
+        }
+        List<UserEntity> userList = page.getContent();
+        model.addAttribute("adminList", userList);
+        model.addAttribute("adminListSize", userList.size());
+        model.addAttribute("pageNumber", page.getNumber());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("isFirstPage", page.isFirst());
+        model.addAttribute("isLastPage", page.isLast());
         return "admin/admin-list";
     }
 
     @GetMapping("/user-list")
-    public String userListPage(Model model) {
-        List<UserEntity> userList = userService.getList("User");
+    public String userListPage(
+            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "") String character,
+            Model model) {
+        Page<UserEntity> page;
+        if (character != null && !character.isEmpty()) {
+            page = userService.searchUser(pageNumber, pageSize, character.trim());
+        } else {
+            page = userService.getList(pageNumber, pageSize, "User");
+        }
+        List<UserEntity> userList = page.getContent();
         model.addAttribute("userList", userList);
+        model.addAttribute("userListSize", userList.size());
+        model.addAttribute("pageNumber", page.getNumber());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("isFirstPage", page.isFirst());
+        model.addAttribute("isLastPage", page.isLast());
         return "admin/user/user-list";
     }
 
