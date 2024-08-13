@@ -212,6 +212,7 @@ public class AdminController extends BaseController {
     public String adminListPage(Model model) {
         List<UserEntity> adminList = userService.getList("Admin");
         model.addAttribute("adminList", adminList);
+        model.addAttribute("adminCount", adminList.size());
         return "admin/admin-list";
     }
 

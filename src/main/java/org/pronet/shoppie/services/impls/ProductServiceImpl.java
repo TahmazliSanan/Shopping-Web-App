@@ -75,9 +75,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> searchActiveProduct(Integer pageNumber, Integer pageSize, String category, String character) {
+    public Page<Product> searchActiveProduct(Integer pageNumber, Integer pageSize, String character) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return productRepository.findByIsActiveTrueAndNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(character, character, pageable);
+        return productRepository.findByIsActiveTrueAndNameContainingIgnoreCase(character, pageable);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> searchProduct(Integer pageNumber, Integer pageSize, String character) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return productRepository.findByNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(character, character, pageable);
+        return productRepository.findByNameContainingIgnoreCase(character, pageable);
     }
 
     @Override
