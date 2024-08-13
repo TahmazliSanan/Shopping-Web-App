@@ -39,7 +39,7 @@
                         <th scope="col">Mobile Number</th>
                         <th scope="col">Address</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
+                        <th th:if="${adminCount > 1}" scope="col">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -70,12 +70,14 @@
                         <th:block th:unless="${admin.isEnabled}">
                             <td>Inactive</td>
                         </th:block>
-                        <td>
-                            <a th:href="@{'/admin/edit-admin-account-status?status=true&id=' + ${admin.id}}"
-                               class="btn btn-sm btn-success">Active</a>
-                            <a th:href="@{'/admin/edit-admin-account-status?status=false&id=' + ${admin.id}}"
-                               class="btn btn-sm btn-danger">Inactive</a>
-                        </td>
+                        <th:block th:if="${adminCount > 1}">
+                            <td th:if="${!admin.email.equals('tehmezlisenan11@gmail.com')}">
+                                <a th:href="@{'/admin/edit-admin-account-status?status=true&id=' + ${admin.id}}"
+                                   class="btn btn-sm btn-success">Active</a>
+                                <a th:href="@{'/admin/edit-admin-account-status?status=false&id=' + ${admin.id}}"
+                                   class="btn btn-sm btn-danger">Inactive</a>
+                            </td>
+                        </th:block>
                     </tr>
                     </tbody>
                 </table>
