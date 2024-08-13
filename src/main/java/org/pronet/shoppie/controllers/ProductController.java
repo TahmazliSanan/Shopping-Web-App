@@ -38,7 +38,7 @@ public class ProductController extends BaseController {
         model.addAttribute("categoryList", categoryList);
         Page<Product> page;
         if (character != null && !character.isEmpty()) {
-            page = productService.searchActiveProduct(pageNumber, pageSize, character);
+            page = productService.searchActiveProduct(pageNumber, pageSize, character.trim());
         } else {
             page = productService.getActiveProductList(pageNumber, pageSize, category);
         }

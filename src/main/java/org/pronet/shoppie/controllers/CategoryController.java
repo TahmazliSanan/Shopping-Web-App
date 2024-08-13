@@ -33,8 +33,14 @@ public class CategoryController extends BaseController {
     public String categoryListPage(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
             @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "") String character,
             Model model) {
-        Page<Category> page = categoryService.getList(pageNumber, pageSize);
+        Page<Category> page;
+        if (character != null && !character.isEmpty()) {
+            page = categoryService.searchActiveCategory(pageNumber, pageSize, character.trim());
+        } else {
+            page = categoryService.getActiveCategoryList(pageNumber, pageSize);
+        }
         List<Category> categoryList = page.getContent();
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("categoryListSize", categoryList.size());

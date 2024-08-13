@@ -76,10 +76,16 @@ public class OrderController extends BaseController {
     public String myOrdersPage(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
             @RequestParam(name = "pageSize", defaultValue = "100") Integer pageSize,
+            @RequestParam(defaultValue = "") String character,
             Model model,
             Principal principal) {
         UserEntity user = getLoggedInUserDetails(principal);
-        Page<Order> page = orderService.getListByUser(user.getId(), pageNumber, pageSize);
+        Page<Order> page;
+        if (character != null && !character.isEmpty()) {
+            page = orderService.searchOrder(user.getId(), pageNumber, pageSize, character.trim());
+        } else {
+            page = orderService.getListByUser(user.getId(), pageNumber, pageSize);
+        }
         List<Order> orderList = page.getContent();
         model.addAttribute("orderList", orderList);
         model.addAttribute("orderListSize", orderList.size());
