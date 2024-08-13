@@ -1,6 +1,7 @@
 package org.pronet.shoppie.services;
 
 import org.pronet.shoppie.entities.UserEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -14,6 +15,9 @@ public interface UserService {
     UserEntity getUserByEmail(String email);
     UserEntity getUserByToken(String token);
     List<UserEntity> getList(String role);
+    Page<UserEntity> getList(Integer pageNumber, Integer pageSize, String role);
+    Page<UserEntity> searchAdmin(Integer pageNumber, Integer pageSize, String character);
+    Page<UserEntity> searchUser(Integer pageNumber, Integer pageSize, String character);
     UserEntity updateUser(UserEntity userEntity);
     UserEntity updateUserProfile(UserEntity userEntity, MultipartFile file) throws IOException;
     Boolean editAccountStatus(Long id, Boolean status);

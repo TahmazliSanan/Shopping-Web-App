@@ -6,6 +6,9 @@ import org.pronet.shoppie.services.UserService;
 import org.pronet.shoppie.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -121,6 +124,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserEntity> getList(String role) {
         return userRepository.findAllByRole(role);
+    }
+
+    @Override
+    public Page<UserEntity> getList(Integer pageNumber, Integer pageSize, String role) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return userRepository.findAllByRole(pageable, role);
+    }
+
+    @Override
+    public Page<UserEntity> searchAdmin(Integer pageNumber, Integer pageSize, String character) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return userRepository.findByFullNameContainingOrEmailContainingAndRoleAdmin(pageable, character);
+    }
+
+    @Override
+    public Page<UserEntity> searchUser(Integer pageNumber, Integer pageSize, String character) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return userRepository.findByFullNameContainingOrEmailContainingAndRoleUser(pageable, character);
     }
 
     @Override
