@@ -28,6 +28,32 @@
                 <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
             </th:block>
             <div class="col-md-12 ">
+                <div class="row">
+                    <div class="col-md-4">Total Orders: [[${totalElements}]]</div>
+                    <th:block th:if="${orderListSize > 0}">
+                        <div class="col-md-6">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item" th:classappend="${isFirstPage} ? 'disabled' : ''">
+                                        <a class="page-link"
+                                           th:href="@{'/order/my-orders?pageNumber=' + ${pageNumber - 1}}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"
+                                        th:classappend="${pageNumber + 1 == i} ? 'active' : ''">
+                                        <a class="page-link" th:href="@{'/order/my-orders?pageNumber=' + ${i - 1}}">[[${i}]]</a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${isLastPage} ? 'disabled' : ''">
+                                        <a class="page-link" th:href="@{'/order/my-orders?pageNumber=' + ${pageNumber + 1}}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </th:block>
+                </div>
                 <table class="table table-bordered card-sh">
                     <thead>
                         <tr>
@@ -64,32 +90,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="row">
-                    <div class="col-md-4">Total Orders: [[${totalElements}]]</div>
-                    <th:block th:if="${orderListSize > 0}">
-                        <div class="col-md-6">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item" th:classappend="${isFirstPage} ? 'disabled' : ''">
-                                        <a class="page-link"
-                                           th:href="@{'/order/my-orders?pageNumber=' + ${pageNumber - 1}}" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"
-                                        th:classappend="${pageNumber + 1 == i} ? 'active' : ''">
-                                        <a class="page-link" th:href="@{'/order/my-orders?pageNumber=' + ${i - 1}}">[[${i}]]</a>
-                                    </li>
-                                    <li class="page-item" th:classappend="${isLastPage} ? 'disabled' : ''">
-                                        <a class="page-link" th:href="@{'/order/my-orders?pageNumber=' + ${pageNumber + 1}}" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </th:block>
-                </div>
             </div>
         </div>
     </div>
