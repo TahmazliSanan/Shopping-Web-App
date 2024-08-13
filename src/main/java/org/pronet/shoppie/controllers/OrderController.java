@@ -82,7 +82,7 @@ public class OrderController extends BaseController {
         UserEntity user = getLoggedInUserDetails(principal);
         Page<Order> page;
         if (character != null && !character.isEmpty()) {
-            page = orderService.searchOrder(user.getId(), pageNumber, pageSize, character.trim());
+            page = orderService.searchOrder(pageNumber, pageSize, character.trim());
         } else {
             page = orderService.getListByUser(user.getId(), pageNumber, pageSize);
         }
