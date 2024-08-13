@@ -14,7 +14,7 @@ public interface ProductService {
     List<Product> getActiveTopProductList();
     List<Product> getActiveProductList(String category);
     Page<Product> getActiveProductList(Integer pageNumber, Integer pageSize, String category);
-    Page<Product> searchActiveProduct(Integer pageNumber, Integer pageSize, String category, String character);
+    Page<Product> searchActiveProduct(Integer pageNumber, Integer pageSize, String character);
     Page<Product> searchProduct(Integer pageNumber, Integer pageSize, String character);
     Product edit(Product product, MultipartFile file) throws IOException;
     Boolean remove(Long id);
