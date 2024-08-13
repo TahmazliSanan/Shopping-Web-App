@@ -15,7 +15,7 @@ public class RequestMatcherPatterns {
             "/admin/**"
     };
     public static final String[] USER_AND_ADMIN_AUTH_MATCHERS = {
-            "/delete-account", "/delete-profile-photo", "/change-password",
-            "/my-profile", "/update-profile", "/change-password", "/settings"
+            "/delete-account", "/delete-profile-photo", "/my-profile",
+            "/update-profile", "/change-password", "/settings"
     };
 }
