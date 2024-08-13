@@ -52,20 +52,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getByOrderId(String orderId) {
-        return orderRepository.findByOrderId(orderId);
-    }
-
-    @Override
     public Page<Order> getList(Integer pageNumber, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return orderRepository.findAll(pageable);
     }
 
     @Override
-    public Page<Order> searchOrder(Long id, Integer pageNumber, Integer pageSize, String character) {
+    public Page<Order> searchOrder(Integer pageNumber, Integer pageSize, String character) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return orderRepository.findByUserIdAndOrderId(id, pageable, character);
+        return orderRepository.findByOrderId(pageable, character);
     }
 
     @Override

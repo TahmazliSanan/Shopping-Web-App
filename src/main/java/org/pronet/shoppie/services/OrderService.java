@@ -9,9 +9,8 @@ import java.io.UnsupportedEncodingException;
 
 public interface OrderService {
     void saveOrder(Long userId, OrderRequest orderRequest) throws MessagingException, UnsupportedEncodingException;
-    Order getByOrderId(String orderId);
     Page<Order> getList(Integer pageNumber, Integer pageSize);
-    Page<Order> searchOrder(Long id, Integer pageNumber, Integer pageSize, String character);
+    Page<Order> searchOrder(Integer pageNumber, Integer pageSize, String character);
     Page<Order> getListByUser(Long id, Integer pageNumber, Integer pageSize);
     Order updateOrderStatus(Long id, Integer status) throws MessagingException, UnsupportedEncodingException;
 }
