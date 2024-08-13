@@ -53,7 +53,7 @@
                                     <td>
                                         <label>
                                             <input id="fullName" type="text" name="fullName" class="form-control"
-                                                   th:value="${user.fullName}">
+                                                   th:value="${user.fullName}" required>
                                         </label>
                                     </td>
                                 </tr>
@@ -63,7 +63,7 @@
                                     <td>
                                         <label>
                                             <input type="tel" name="mobileNumber"
-                                                   class="form-control" th:value="${user.mobileNumber}">
+                                                   class="form-control" th:value="${user.mobileNumber}" required>
                                         </label>
                                     </td>
                                 </tr>
@@ -83,7 +83,7 @@
                                     <td>
                                         <label>
                                             <input type="text" name="city" class="form-control"
-                                                   th:value="${user.city}">
+                                                   th:value="${user.city}" required>
                                         </label>
                                     </td>
                                 </tr>
@@ -93,7 +93,7 @@
                                     <td>
                                         <label>
                                             <input type="text" name="country" class="form-control"
-                                                   th:value="${user.country}">
+                                                   th:value="${user.country}" required>
                                         </label>
                                     </td>
                                 </tr>
@@ -123,12 +123,12 @@
                                     <td>
                                         <label>
                                             <th:block th:if="${user.isEnabled}">
-                                                <input type="text" name="isEnabled" class="form-control"
-                                                       readonly value="Active">
+                                                <input type="text" class="form-control"
+                                                       readonly th:value="${'Active'}">
                                             </th:block>
                                             <th:block th:unless="${user.isEnabled}">
-                                                <input type="text" name="isEnabled" class="form-control"
-                                                       readonly value="Inactive">
+                                                <input type="text" class="form-control"
+                                                       readonly th:value="${'Inactive'}">
                                             </th:block>
                                         </label>
                                         <input type="hidden" th:value="${user.id}" name="id">
