@@ -30,7 +30,7 @@ public class ProductController extends BaseController {
     public String productListPage(
             @RequestParam(value = "category", defaultValue = "") String category,
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "8") Integer pageSize,
+            @RequestParam(name = "pageSize", defaultValue = "40") Integer pageSize,
             @RequestParam(name = "character", defaultValue = "") String character,
             Model model) {
         List<Category> categoryList = categoryService.getActiveCategoryList();

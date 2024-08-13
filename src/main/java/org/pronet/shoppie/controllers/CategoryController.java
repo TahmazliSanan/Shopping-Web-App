@@ -32,7 +32,7 @@ public class CategoryController extends BaseController {
     @GetMapping("/list")
     public String categoryListPage(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
+            @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
             Model model) {
         Page<Category> page = categoryService.getList(pageNumber, pageSize);
         List<Category> categoryList = page.getContent();

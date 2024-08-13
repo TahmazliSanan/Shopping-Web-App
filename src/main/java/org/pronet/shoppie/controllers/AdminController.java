@@ -45,7 +45,7 @@ public class AdminController extends BaseController {
     @GetMapping("/category-list")
     public String categoryListPage(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
+            @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
             Model model) {
         Page<Category> page = categoryService.getList(pageNumber, pageSize);
         List<Category> categoryList = page.getContent();
@@ -149,7 +149,7 @@ public class AdminController extends BaseController {
     @GetMapping("/product-list")
     public String productListPage(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
+            @RequestParam(name = "pageSize", defaultValue = "100") Integer pageSize,
             @RequestParam(defaultValue = "") String character,
             Model model) {
         Page<Product> page;
@@ -254,7 +254,7 @@ public class AdminController extends BaseController {
     @GetMapping("/order-list")
     public String orderListPage(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
+            @RequestParam(name = "pageSize", defaultValue = "100") Integer pageSize,
             Model model) {
         Page<Order> page = orderService.getList(pageNumber, pageSize);
         List<Order> orderList = page.getContent();

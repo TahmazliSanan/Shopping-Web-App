@@ -75,7 +75,7 @@ public class OrderController extends BaseController {
     @GetMapping("/my-orders")
     public String myOrdersPage(
             @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
+            @RequestParam(name = "pageSize", defaultValue = "100") Integer pageSize,
             Model model,
             Principal principal) {
         UserEntity user = getLoggedInUserDetails(principal);
