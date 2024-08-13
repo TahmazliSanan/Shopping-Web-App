@@ -27,6 +27,14 @@
                 </div>
                 <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
             </th:block>
+            <div class="row">
+                <form action="/order/my-orders">
+                    <label>
+                        <input type="text" class="form-control" name="character">
+                    </label>
+                    <button class="btn btn-primary col">Search</button>
+                </form>
+            </div>
             <div class="col-md-12 ">
                 <div class="row">
                     <div class="col-md-4">Total Orders: [[${totalElements}]]</div>

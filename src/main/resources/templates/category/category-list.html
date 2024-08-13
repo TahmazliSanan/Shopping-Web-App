@@ -26,6 +26,13 @@
             <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
         </th:block>
         <div class="row">
+            <form action="/category/list">
+                <label>
+                    <input type="text" class="form-control" name="character">
+                </label>
+                <button class="btn btn-primary col">Search</button>
+            </form>
+            <br> <br> <br>
             <div class="col-md-8">
                 <div class="card card-sh">
                     <div class="card-header text-center fs-4">Category List</div>
