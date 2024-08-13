@@ -52,10 +52,10 @@
                 <span class="fw-bold">Product Details:</span>
                 <br>
                 Status:
-                <th:block th:if="${foundedProduct.stock > 0}">
+                <th:block th:if="${foundedProduct.countInStock > 0}">
                   <span class="badge bg-success">Available</span>
                 </th:block>
-                <th:block th:unless="${foundedProduct.stock > 0}">
+                <th:block th:unless="${foundedProduct.countInStock > 0}">
                   <span class="badge bg-warning">Out Of Stock</span>
                 </th:block>
                 <br>
@@ -85,11 +85,11 @@
                   <p>Free Shipping</p>
                 </div>
               </div>
-              <th:block th:if="${foundedProduct.stock > 0}">
+              <th:block th:if="${foundedProduct.countInStock > 0}">
                 <a th:href="@{'/cart/add-product?productId='+${foundedProduct.id} + '&userId='+${user.id}}"
                    class="btn btn-secondary col-md-12">Add To Cart</a>
               </th:block>
-              <th:block th:unless="${foundedProduct.stock > 0}">
+              <th:block th:unless="${foundedProduct.countInStock > 0}">
                 <a href="#" class="btn text-white btn-warning col-md-12">Out of Stock</a>
               </th:block>
             </div>

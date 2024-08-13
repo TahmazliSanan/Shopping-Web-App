@@ -87,7 +87,7 @@
                             <th:block th:unless="${product.isActive}">
                                 <td>Inactive</td>
                             </th:block>
-                            <td>[[${product.stock}]]</td>
+                            <td>[[${product.countInStock}]]</td>
                             <td>
                                 <a th:href="@{'/admin/edit-product/' + ${product.id}}"
                                    class="btn btn-sm btn-success">Edit</a>

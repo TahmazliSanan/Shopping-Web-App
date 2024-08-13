@@ -62,7 +62,7 @@
                         <td th:text="${user.email}"></td>
                         <td th:text="${user.mobileNumber}"></td>
                         <td>
-                            [[${user.address}]] / [[${user.city}]] / [[${user.state}]] / [[${user.pinCode}]]
+                            [[${user.city}]] / [[${user.country}]]
                         </td>
                         <th:block th:if="${user.isEnabled}">
                             <td>Active</td>

@@ -72,7 +72,7 @@
                                         City : [[${orderDetails.orderAddress.city}]]
                                         <br>
                                         State :
-                                        [[${orderDetails.orderAddress.state}]] / [[${orderDetails.orderAddress.pinCode}]]
+                                        [[${orderDetails.orderAddress.country}]] / [[${orderDetails.orderAddress.pinCode}]]
                                     </td>
                                     <td th:text="${orderDetails.orderDate}"></td>
                                     <td th:text="${orderDetails.product.name}"></td>
@@ -132,7 +132,7 @@
                                     City : [[${order.orderAddress.city}]]
                                     <br>
                                     State :
-                                    [[${order.orderAddress.state}]] / [[${order.orderAddress.pinCode}]]
+                                    [[${order.orderAddress.country}]] / [[${order.orderAddress.pinCode}]]
                                 </td>
                                 <td th:text="${order.orderDate}"></td>
                                 <td th:text="${order.product.name}"></td>
