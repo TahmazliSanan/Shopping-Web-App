@@ -25,11 +25,46 @@
             </div>
             <th:block th:text="${@sessionManagementServiceImpl.removeSessionMessage()}"></th:block>
         </th:block>
+        <div class="col">
+            <form action="/admin/admin-list" method="get">
+                <label>
+                    <input type="text" class="form-control" name="character">
+                </label>
+                <button class="btn btn-primary col">Search</button>
+            </form>
+        </div>
+        <br> <br>
         <div class="card card-sh">
             <div class="card-header text-center">
                 <p class="fs-4">Admin List</p>
             </div>
             <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">Total Admins: [[${totalElements}]]</div>
+                    <div class="col-md-6">
+                        <th:block th:if="${adminListSize > 0}">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item" th:classappend="${isFirstPage} ? 'disabled' : ''">
+                                        <a class="page-link"
+                                           th:href="@{'/admin/admin-list?pageNumber=' + ${pageNumber - 1}}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"
+                                        th:classappend="${pageNumber + 1 == i} ? 'active' : ''">
+                                        <a class="page-link" th:href="@{'/admin/admin-list?pageNumber=' + ${i - 1}}">[[${i}]]</a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${isLastPage} ? 'disabled' : ''">
+                                        <a class="page-link" th:href="@{'/admin/admin-list?pageNumber=' + ${pageNumber + 1}}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </th:block>
+                    </div>
+                </div>
                 <table class="table">
                     <thead>
                     <tr>
@@ -39,7 +74,7 @@
                         <th scope="col">Mobile Number</th>
                         <th scope="col">Address</th>
                         <th scope="col">Status</th>
-                        <th th:if="${adminCount > 1}" scope="col">Actions</th>
+                        <th th:if="${adminListSize > 1}" scope="col">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -70,7 +105,7 @@
                         <th:block th:unless="${admin.isEnabled}">
                             <td>Inactive</td>
                         </th:block>
-                        <th:block th:if="${adminCount > 1}">
+                        <th:block th:if="${adminListSize > 1}">
                             <td th:if="${!admin.email.equals('tehmezlisenan11@gmail.com')}">
                                 <a th:href="@{'/admin/edit-admin-account-status?status=true&id=' + ${admin.id}}"
                                    class="btn btn-sm btn-success">Active</a>
