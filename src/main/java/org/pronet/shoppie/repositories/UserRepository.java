@@ -16,8 +16,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByResetToken(String token);
     List<UserEntity> findAllByRole(String role);
     Page<UserEntity> findAllByRole(Pageable pageable, String role);
-    @Query("SELECT u FROM UserEntity u WHERE (u.fullName LIKE %:character% OR u.email LIKE %:character%) AND u.role = 'Admin'")
+    @Query("SELECT u FROM UserEntity u WHERE (u.fullName ILIKE %:character% OR u.email ILIKE %:character%) AND u.role = 'Admin'")
     Page<UserEntity> findByFullNameContainingOrEmailContainingAndRoleAdmin(Pageable pageable, String character);
-    @Query("SELECT u FROM UserEntity u WHERE (u.fullName LIKE %:character% OR u.email LIKE %:character%) AND u.role = 'User'")
+    @Query("SELECT u FROM UserEntity u WHERE (u.fullName ILIKE %:character% OR u.email ILIKE %:character%) AND u.role = 'User'")
     Page<UserEntity> findByFullNameContainingOrEmailContainingAndRoleUser(Pageable pageable, String character);
 }

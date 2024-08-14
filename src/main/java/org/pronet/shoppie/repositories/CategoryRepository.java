@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    @Query(nativeQuery = true, value = "SELECT * FROM categories WHERE is_active = 1 ORDER BY id LIMIT 4")
+    @Query(nativeQuery = true, value = "SELECT * FROM categories WHERE is_active = TRUE ORDER BY id DESC LIMIT 4;")
     List<Category> takeActiveTopCategories();
     List<Category> findByIsActiveTrue();
     Page<Category> findByNameContainingIgnoreCase(String character, Pageable pageable);
