@@ -68,7 +68,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Email</th>
+                                    <th scope="row">Email Address</th>
                                     <td>:</td>
                                     <td>
                                         <label>
@@ -98,7 +98,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Image</th>
+                                    <th scope="row">Profile Photo</th>
                                     <td>:</td>
                                     <td>
                                         <label>
@@ -118,7 +118,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Account Status</th>
+                                    <th scope="row">Status</th>
                                     <td>:</td>
                                     <td>
                                         <label>
@@ -137,7 +137,7 @@
                                 <tr>
                                     <td></td>
                                     <td class="text-center">
-                                        <button class="btn btn-sm bg-success text-light">Update</button>
+                                        <button class="btn btn-sm bg-success text-light">Save</button>
                                     </td>
                                 </tr>
                             </form>
@@ -146,7 +146,7 @@
                         !user.profileImageName.isEmpty()}">
                             <form method="get" action="/delete-profile-photo">
                                 <input type="hidden" th:value="${user.id}" name="id">
-                                <button class="btn btn-sm bg-danger text-light">Delete photo</button>
+                                <button class="btn btn-sm bg-danger text-light">Delete Photo</button>
                             </form>
                         </th:block>
                         </tbody>

@@ -22,7 +22,7 @@
                                        th:value="${foundedProduct.name}" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label for="price">Price</label>
+                                <label for="price">Price ($)</label>
                                 <input id="price" type="number" step="any" name="price"
                                        th:value="${foundedProduct.price}" class="form-control" required>
                             </div>
@@ -42,12 +42,12 @@
                             </div>
                             <div class="row">
                                 <div class="mb-3 col">
-                                    <label for="discount">Discount</label>
+                                    <label for="discount">Discount (%)</label>
                                     <input id="discount" type="number" name="discount"
                                            th:value="${foundedProduct.discount}" class="form-control" required>
                                 </div>
                                 <div class="mb-3 col">
-                                    <label for="discountPrice">Discount Price</label>
+                                    <label for="discountPrice">Discount Price ($)</label>
                                     <input id="discountPrice" type="number" readonly
                                            th:value="${foundedProduct.discountPrice}" class="form-control">
                                 </div>
@@ -74,13 +74,13 @@
                                            th:value="${foundedProduct.countInStock}" class="form-control" required>
                                 </div>
                                 <div class="mb-3 col">
-                                    <label for="file">Image</label>
+                                    <label for="file">Cover Photo</label>
                                     <input id="file" type="file" name="file" class="form-control">
                                 </div>
                             </div>
                             <img th:src="@{'/product-images/' + ${foundedProduct.imageName}}"
                                  width="100px" height="100px" alt="...">
-                            <button class="btn btn-success col-md-12">Update</button>
+                            <button class="btn btn-success col-md-12">Save</button>
                         </form>
                     </div>
                 </div>

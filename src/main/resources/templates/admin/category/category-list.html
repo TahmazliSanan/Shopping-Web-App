@@ -60,10 +60,10 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="file">Image</label>
+                                    <label for="file">Cover Photo</label>
                                     <input id="file" name="file" type="file" class="form-control" required>
                                 </div>
-                                <button class="btn btn-primary col-md-12">Submit</button>
+                                <button class="btn btn-primary col-md-12">Add</button>
                             </form>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Image</th>
+                                        <th scope="col">Cover Photo</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Actions</th>
                                     </tr>
@@ -132,9 +132,9 @@
                                         </th:block>
                                         <td>
                                             <a th:href="@{'/admin/edit-category/' + ${category.id}}"
-                                               class="btn btn-sm btn-success">Edit</a>
+                                               class="btn btn-sm btn-success">Update</a>
                                             <a th:href="@{'/admin/remove-category/' + ${category.id}}"
-                                               class="btn btn-sm btn-danger">Remove</a>
+                                               class="btn btn-sm btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 </tbody>

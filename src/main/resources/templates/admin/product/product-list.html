@@ -75,7 +75,7 @@
                     <table class="table table-bordered">
                         <thead class="table-light">
                         <tr>
-                            <th scope="col">Image</th>
+                            <th scope="col">Cover Photo</th>
                             <th scope="col">Name</th>
                             <th scope="col">Category</th>
                             <th scope="col">Price ($)</th>
@@ -116,7 +116,7 @@
                             <td>[[${product.countInStock}]]</td>
                             <td>
                                 <a th:href="@{'/admin/edit-product/' + ${product.id}}"
-                                   class="btn btn-sm btn-success">Edit</a>
+                                   class="btn btn-sm btn-success">Update</a>
                                 <a th:href="@{'/admin/remove-product/' + ${product.id}}"
                                     class="btn btn-sm btn-danger">Delete</a>
                             </td>
