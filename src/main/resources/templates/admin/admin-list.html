@@ -106,7 +106,7 @@
                             <td>Inactive</td>
                         </th:block>
                         <th:block th:if="${adminListSize > 1}">
-                            <td th:if="${!admin.email.equals('tehmezlisenan11@gmail.com')}">
+                            <td th:if="${!admin.email.equals('MAIN_ADMIN_EMAIL')}">
                                 <a th:href="@{'/admin/edit-admin-account-status?status=true&id=' + ${admin.id}}"
                                    class="btn btn-sm btn-success">Active</a>
                                 <a th:href="@{'/admin/edit-admin-account-status?status=false&id=' + ${admin.id}}"
